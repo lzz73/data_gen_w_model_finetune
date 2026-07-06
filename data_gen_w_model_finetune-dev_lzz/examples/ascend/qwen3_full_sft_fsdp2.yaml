@@ -1,0 +1,78 @@
+# Start FSDP2 fine-tuning
+# accelerate launch \
+#     --config_file examples/accelerate/fsdp2_config.yaml \
+#     src/train.py examples/ascend/qwen3_full_sft_fsdp2.yaml
+# Change `num_processes` in fsdp2_config.yaml to 16 in A3
+### model
+# 模型配置参数
+# model_name_or_path: 预训练模型名称或路径，指定Qwen3-8B模型
+model_name_or_path: Qwen/Qwen3-8B
+# trust_remote_code: 是否信任远程代码，允许加载自定义模型代码
+trust_remote_code: true
+# use_v1_kernels: 是否使用v1内核优化
+use_v1_kernels: true
+# flash_attn: 闪存注意力机制类型，fa2表示使用FlashAttention-2
+flash_attn: fa2
+### method
+# 训练方法配置参数
+# stage: 训练阶段类型，sft表示监督微调(Supervised Fine-Tuning)
+stage: sft
+# do_train: 是否执行训练过程
+do_train: true
+# finetuning_type: 微调类型，full表示全参数微调
+finetuning_type: full
+
+### dataset
+# 数据集配置参数
+# dataset: 使用的数据集名称，alpaca_en_demo为英文Alpaca演示数据集
+dataset: alpaca_en_demo
+# template: 数据模板类型，qwen3为Qwen3专用模板
+template: qwen3
+# cutoff_len: 序列最大截断长度，限制输入序列的最大token数
+cutoff_len: 2048
+# max_samples: 最大样本数量，限制训练数据的数量上限
+max_samples: 1000
+# overwrite_cache: 是否覆盖缓存文件，重新处理数据
+overwrite_cache: true
+# preprocessing_num_workers: 数据预处理时使用的进程数
+preprocessing_num_workers: 16
+# dataloader_num_workers: 数据加载器使用的worker进程数
+dataloader_num_workers: 4
+
+### output
+# 输出配置参数
+# output_dir: 模型输出目录路径
+output_dir: saves/Qwen3-8B/full/sft
+# logging_steps: 日志记录步数间隔，每几步记录一次训练日志
+logging_steps: 1
+# save_steps: 模型保存步数间隔，每几步保存一次检查点
+save_steps: 500
+# max_steps: 最大训练步数，限制训练总步数
+max_steps: 500
+# plot_loss: 是否绘制损失曲线图
+plot_loss: true
+# overwrite_output_dir: 是否覆盖输出目录
+overwrite_output_dir: true
+# save_only_model: 是否仅保存模型权重，不保存优化器状态等
+save_only_model: false
+# report_to: 报告工具选择，none表示不使用外部报告工具
+report_to: none  # choices: [none, wandb, tensorboard, swanlab, mlflow]
+
+### train
+# 训练超参数配置
+# per_device_train_batch_size: 每个设备的训练批次大小
+per_device_train_batch_size: 8
+# gradient_accumulation_steps: 梯度累积步数，用于模拟更大的批次大小
+gradient_accumulation_steps: 1
+# learning_rate: 学习率，控制模型参数更新步长
+learning_rate: 1.0e-5
+# lr_scheduler_type: 学习率调度器类型，cosine表示余弦退火调度
+lr_scheduler_type: cosine
+# warmup_ratio: 预热比例，在训练初期逐步增加学习率
+warmup_ratio: 0.1
+# bf16: 是否使用bfloat16混合精度训练，提高训练效率
+bf16: true
+# ddp_timeout: 分布式训练超时时间（秒）
+ddp_timeout: 1800
+# resume_from_checkpoint: 从检查点恢复训练的路径，null表示从头开始
+resume_from_checkpoint: null

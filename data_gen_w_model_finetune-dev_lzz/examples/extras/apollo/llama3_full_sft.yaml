@@ -1,0 +1,48 @@
+### model
+model_name_or_path: meta-llama/Meta-Llama-3-8B-Instruct  # 指定预训练模型路径或名称
+trust_remote_code: true  # 是否信任远程代码，允许执行模型仓库中的自定义代码
+
+### method
+stage: sft  # 训练阶段类型，sft表示监督微调
+do_train: true  # 是否执行训练
+finetuning_type: full  # 微调类型，full表示全量微调
+use_apollo: true  # 是否使用Apollo优化算法
+apollo_layerwise: true  # Apollo是否分层处理，false用于DDP训练
+apollo_target: all  # Apollo优化目标，all表示所有层
+apollo_rank: 128  # Apollo算法的秩参数
+apollo_scale: 32.0  # Apollo算法的缩放因子
+apollo_scale_type: channel  # Apollo缩放类型，channel表示通道级
+
+### dataset
+dataset: identity,alpaca_en_demo  # 使用的数据集名称列表，identity和alpaca_en_demo
+template: llama3  # 模板类型，llama3表示Llama3格式
+cutoff_len: 2048  # 输入序列的最大长度
+max_samples: 1000  # 最大样本数量限制
+overwrite_cache: true  # 是否覆盖缓存数据
+preprocessing_num_workers: 16  # 预处理并行工作进程数
+dataloader_num_workers: 4  # 数据加载器工作进程数
+
+### output
+output_dir: saves/llama3-8b/full/sft  # 模型输出目录路径
+logging_steps: 10  # 日志记录步数间隔
+save_steps: 500  # 模型保存步数间隔
+plot_loss: true  # 是否绘制损失曲线
+overwrite_output_dir: true  # 是否覆盖输出目录
+save_only_model: false  # 是否仅保存模型文件
+report_to: none  # 报告工具选择，none表示不使用外部报告工具
+
+### train
+per_device_train_batch_size: 1  # 每个设备的训练批次大小
+gradient_accumulation_steps: 1  # 梯度累积步数，layerwise apollo使用1
+learning_rate: 1.0e-5  # 学习率
+num_train_epochs: 3.0  # 训练轮数
+lr_scheduler_type: cosine  # 学习率调度器类型，cosine表示余弦退火
+warmup_ratio: 0.1  # 预热比例
+pure_bf16: true  # 是否使用纯bf16精度训练
+ddp_timeout: 180000000  # DDP分布式训练超时时间（毫秒）
+
+### eval
+# val_size: 0.1  # 验证集比例（已注释）
+# per_device_eval_batch_size: 1  # 每个设备的验证批次大小（已注释）
+# eval_strategy: steps  # 验证策略，steps表示按步数验证（已注释）
+# eval_steps: 500  # 验证步数间隔（已注释）

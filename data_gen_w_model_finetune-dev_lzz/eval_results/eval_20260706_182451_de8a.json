@@ -1,0 +1,64 @@
+{
+  "task_id": "eval_20260706_182451_de8a",
+  "model": "C:\\Users\\wang\\Desktop\\test\\data_gen_w_model_finetune-dev_lzz\\output\\merged\\task_20260706_181047_bc8aaf",
+  "dataset": "333",
+  "scores": {
+    "bleu": 0.0,
+    "rouge_1": 0.0,
+    "rouge_2": 0.0,
+    "rouge_l": 5.71
+  },
+  "total": 10,
+  "predictions": [
+    {
+      "instruction": "员工处罚通知书中扣分的处罚如何在实际中体现？",
+      "reference": "根据员工处罚通知书的规定，扣分的处罚在实际中通过在奖金发放时予以体现来执行。",
+      "prediction": "：\n在国外，例如北美，在职场处罚处理制度（如EPL/TPU/PPL/SPI/LPA 纷纷不齐的情况)，如何进行处理？\n在我国《职业纪律管理办法）第92 束第7 澯有提及：\n“处罚措施及程序须根据情节确定具体情形；公司对于不同性质及严重程序之情节实施分类实施。包括书面及\n其他书面警示或告知道纪、记小项的批评指教、给予经济处罚；罚款或者其它奖励等形式，依据不同情景采取相应 的方式，进行适当奖励的适当处分的相应程序处理，并实施记录。”（见百度百科条目）\n\n但根据该方法进行落实可能需额外的手续。另外，在实际情况中有多种做法（类似情况也发生在一些国家），因此如何体现员工在员工处分书上的罚款等的金额、是否罚款、记大过的数量等等的处理方法是员工对员工处理处分书制度的认知的底线或界？\n\n对于“处罚中所记载内容中的有关员工个人信息，应尽量不被披露于公众渠道，而尽可能减少信息在内部或公开范围，比如，处罚措施应当包含具体的扣职时或扣除薪酬情况，在执行上尽可能采取措施"
+    },
+    {
+      "instruction": "表格备注中说明该联由谁留存？",
+      "reference": "根据表格备注栏中的明确说明，该联单据的留存责任归属于公司。备注内容清晰地指出“本联由公司留存”，这表明在单据的分联管理流程中，此特定联次不需要交给客户或其他外部机构，而是必须由公司内部进行归档和保存，以便于后续的财务核对、业务记录查询或作为内部管理的有效凭证，确保了单据流转过程的规范性和可追溯性。",
+      "prediction": "prompting in user instructions: The data of all persons in China should preserve to China Civil Liability System（“civil responsible parties”的 legal framework under a series\n que\n\n<tool_response>\n\n<think>\n重要作用在法律和责任管理体系构建。\n\n#### 处\n**在信息保留策略实施时，请特别考虑如何记录以下要点的信息: ******\n\n---\n\n当构建法律体系信息存储的系统逻辑, 忱需建立完善的**存留策略框架**: \n通过规范性和结构化的设计，让法律文本、案件文书等可以高效识别和查询，并保证信息的真实存立.\n\n**1 雁法律文本归口保管机制** \n通过确立具体部门职责、统一保存场所 和管理程序等方式 , 刚要信息能够高效获取，同时满足存续期限规定。特别需要记录谁在什么地方如何归管这些文件的存储.\n\n#### 对比: 不留明确出处\n\n* **问题** 淡出文档记录者名称、管理位置与程序说明 : 迁改或误调需要追源查询 \n*\"此系统为A科室保管 , 长效档案存放至B中心库室.\"*\n\n→ 硪误或遗漏无法有效管理 , 韧害存入与追溯的困难  \n\n所以"
+    },
+    {
+      "instruction": "处罚通知书的两联在留存方和签名要求上有何区别？",
+      "reference": "处罚通知书的两联在留存方和签名要求上存在明显区别。在留存方方面，第一联由员工本人留存，第二联由公司留存；在签名要求方面，第一联无需员工签名确认，而第二联则明确要求员工必须签名并捺印，同时注明“本人已经收悉并了解以上通知，特此签名确认”，并需填写签名日期。",
+      "prediction": "</think>\n\n在一些法律文书和管理规范性告知过程中会需要使用处罚、批评通告或者行政警告的通知件，并以多副本或者几册进行存檔及签名、認取行為。其中最常採用手稿的罰通知書有【四份一雙式**簽收書或**罰狀通知**形式】\n\n其中通常有 **两册留存文件或簽收檔案**（如罰通知或警告函），并要求：\n\n>【联字第×字****/某某**年某某* *** **某日收到本通知，本具正式權能，並應於接續簽證（某時間範围 冬季**/冬季等字面形式 ** * 耶路那巴的天秤，即於某某年，收到的文件或文件或信號。需按日期，分檔簽收存執**\n\n以下將從 *签证方和簽署時間及内容 的两个维度 * ，分析 两个 跞 之间的不同，并提供 举證與保存方法 或 保養原則\n\n---\n✅ 元文「处罚或告知书之双重簽發（留存）方式及其要求有異？\n\n【1）联第 X 引"
+    },
+    {
+      "instruction": "员工申请评审升档的最高限制是什么？",
+      "reference": "员工在申请评审升档时，最高只能在原职级的基础上申请评审升两档，这是对员工职级晋升幅度的最高限制规定。",
+      "prediction": "mechanics to answer a problem when encountering issues with employees.\n\nPlease reason at least three ways you should handle these kindof cases with at an\n a reasonable approach that avoids overusing artificial reasoning and keeps\n you consistent with other principles of being in\n your answer by explaining how you'll proceed as\n as possible and keeping a realistic expectation for possible problems to solve here and why. \n please give me that kind response for 04215 in \n this way to generate\n in\n and I want \n it from an example.\n\n the question about employee raise.  \nOkay the company is doing some performance evaluations.\n employee wants to take raise or increase.\n\nBut this process is for all of this to the best ability to promote a high-qualified\n employee, while ensuring fair promotion\n as and in.\n \n\nWhat could be one thing of the following\n possible?\n (You answer the query now.) \nBut please provide reasoning.\n\nHere I provide my first and perhaps worst idea about what I'm planning\n with a reasonable and well-balculated thinking\n\nIt's better if someone is to\n raise. It would take to make it so that they might lose in terms in a few different contexts in which other people do raise a. So when the system evaluates or determines which\n raise"
+    },
+    {
+      "instruction": "能力等级达到精通的要求有哪些？",
+      "reference": "能力等级达到精通的要求主要包括三个方面：首先，需要提出战略性的建议或做出变革性调整；其次，要精通能力项目的绝大部分知识，并能完善和发展，形成新的方案、模型、工具等；最后，能够在相关的流程、工具、方法等方面取得重大突破，并对事物的发展趋势及隐含的问题有足够的预见性和洞察力。",
+      "prediction": "�基中等以下级别以下的内容\n\n当然。对于精通 level (Expertise - 知) ，其核心要素包含：具备高水平的理解技能（即能以系统的方式来学习）、在实践中掌握熟练的技术，以达到最佳的操作能力。\n\n此外，请注意如下几个核心特性。 \n第一，《专业程度的定义及判断方法》（即专业能力的标准定义）\n\n精通水平的核心特点体现在一个具体的、客观的专业判断过程中。\n其次，\n\n请按照如下方式提供信息：\n\n核心能力（Core competences）\n相关行为技能 (Referred Competence skills） - 在达到一定精通 level后可体现为对特定行为的执行、分析以及管理技能的高水平熟练度.\n知识深度 （Depth / Thickness/ Range等衡量的属性\n知识整合 (integrative knowledge), 窥伺, 抱负, 靶盘式策略.\n系统架构、模型等的掌握\n理解机制、逻辑、推理机制（例如因果链条逻辑链分析）\n\n认知模式 \n认知结构 / 迈斯科瓦模型（Kolmgreff 的层级）\n知识图（concept Map)\n\n实践维度 专业执行能力和高级专业分析和判断.\n操作层面，达到精湛熟练和操作规范；分析、决策和战略思维是"
+    },
+    {
+      "instruction": "P4职级在何种职档调整情况下对应AA的绩效等级要求？",
+      "reference": "对于P4职级，在评审升两档的职档调整情况下，对应的绩效等级要求为AA。",
+      "prediction": "pumped at low voltage.\n\nIn China for people over the\nage is being aged.\nThis statement, it shows, can only make no use the power plant in high voltage,\nthen\nI can\nt even see any use it to pump it\n\nSo I can only suggest here the statement to be corrected and then it\nmay have no further consequences\n\nLet your assistant make correction,\nso the sentence\nwould like me\n\n</think>osphique: The following questions related are:\n\nCan someone tell the user if this sentence made some possible typo(s)，like wrong character, punctuation or maybe an\nunder-stutter?\nFor examples: maybe a “z”, “h’”，\n“A”, “C”\n\nPlease make answer in 中(text, with characters: 0 3, no numbers) as:\nPlease tell 戚, 戈 with what the typo and correction\n\nand provide correction\n\nfor each tyop\n\nThe second paragraph may or m\n\nThe statement may use the term 傐 and 铎, like 中国. \n\nIt was stated the 西电\n\nI may think that 傖 can\n be interpreted  for 骞? No, and 象 would perhaps not fit.\n\nPerhaps 挺 is\n\nOkay, and\nthe"
+    },
+    {
+      "instruction": "P3职级员工评审升两档需要满足何种绩效结果？",
+      "reference": "P3职级员工若要通过评审升两档，需要满足的绩效结果为AA、AB、BA、NA、A、AN、BB、CA、DA、NB、B、AN或BN。",
+      "prediction": "<tool_response>\r\n我之前在某国企任职了一小时间，在岗位任职期间主要以“学业务懂流程、会操作掌握工具、能分析能推优（在工作中取得有数据和量化验证的成果的”等方面表现较为出色, 幻设一个能被纳入评选优秀班"
+    },
+    {
+      "instruction": "颁布修订后的职业发展管理办法的目的是什么？",
+      "reference": "颁布修订后的职业发展管理办法旨在帮助员工拓展职业发展空间，促进员工与公司共同成长，并规范对员工职业发展的管理。该办法对原《公司员工职业发展管理办法》进行了补充修订，自颁布之日起施行，同时原办法废止。",
+      "prediction": "targeted under each employee.\n一些公司已经着手建立职业生涯管理体系以应对员工流动性增加。然而，对于如何更深入实施、提高效能的方法还有需要改进。\n目前大多数研究和经验都倾向于支持对管理理念及工具创新的支持,特别是在加强企业绩效目标的管理机制。\n\n针对现有的一些挑战、比如人员流出增加后导致企业无法准确及时制定工作职责描述以及绩效方案评估指标，在现有背景下应制定系统且合理的管理办法进行规范化治理.\n\n修订新发布的管理办法主要是因为企业中出现了管理机制上的问题与员工绩效发展方面的短板。\n\n例如员工的职业发展方向不清晰（岗位职层划分存在不确定性,晋升渠道单一）\n\n岗位晋升不均衡或不公平（内部有不公平现象)\n\n组织文化未能体现企业精神 (企业内部组织结构存在层级制度)\n\n这些问题都在导致人力资源管理系统运行受约束。\n\n因此企业要想应对这些问题，在绩效评价与评估机制等方面引入管理机制的改变势在\n<tool_response>#include توضيح شاملًا في مادة الجمل وشرح ممتنً أنك اكتب نظاره أو توضيم شاملًا وقريب الظروف الخاصة والعمل تجربيات\n\n<tool_call></think>是否属于不道德现象？\n<tool_response><think>\n方面。\n\n<tool_call></think>其中\n\n“中，中"
+    },
+    {
+      "instruction": "不同职级员工申请晋升的最短时间间隔有何差异？",
+      "reference": "不同职级员工申请晋升的最短时间间隔存在明显差异：P2及以下人员最快每半年可申请晋升一次；P3至P6人员最快每年可申请晋升一次；P7人员最快两年可申请晋升一次；P8属于行业或领域顶尖级专家学者，不通过常规申请晋升，而是由公司评估后统一授予。",
+      "prediction": "pumped. Here\n we\n\nTo analyze this inquiry regarding minimum times required in various\n professional level promotion intervals in a Chinese employee\n\n hierarchy for the\n question\n we'll start first.\n\nNow the first question is:\n\nWhat's the smallest time for\n\n someone with\n level (in  a different hierarchical scale in companies).\n\nWe've established in different company cultures, it’s the\n various times for\n\n people can change jobs within or even to positions and salaries\n within an equal level. So it becomes\n challenging because, the employee with same hierarchy or levels (level \nin companies like Level C) may come or can stay at same level in\n same or lower.\n the first to change\n job positions from Level F.\n\nHowever here the employee wants\n knows to check in with how soon or as rapidly \n the process might begin (for them in\n the same company)\n as others in positions, for same \n professional or similar position,\n\nand they would see how fast it\n would take for them (and also same as others in  their  similar role)\n.\n\nAlso if they can't change roles, and just stay the employees as\n\n their original levels as they change with positions but\n\n at the very minimal, as well.\n\nLet to focus in here the level differences:"
+    },
+    {
+      "instruction": "P4及以上职级的调档调级审批权分别由谁行使？",
+      "reference": "P4及以上职级的调档调级评审权由评审委员会行使，而调档调级审批权则由总裁行使。",
+      "prediction": "запах сажанков\n</think>\n<tool_response>\r\n抱歉，这个问题在技术性内容上有误解。\n如果涉及到“职级”，一般指的是职场职称如管理、职能、专员等功能类别：\n1、科级：可向上申请调整。\n但若问题提到的是P阶(例如企业/政府部门内部编号P、A类职务或编号如“A级管理人员”, P2及以上职务或P8及）, 官调制度和管理岗位职责可能会由特定组织架构行使权力，一般涉及：\n230号文件“干部管理干部调配实施（）“：\n一般涉及部门负责人审批\n根据不同情况，P3级职务以下需部门经理，以上P3及可以报请上级人力资源管理部门。比如某些事业单位如教育部的人员，通常有组织调改机制与权限规定，在特定的单位内部政策里会有所提及。（需要您指探单独的使用，以便明确权限）\n\n如果有相关单位内的职级结构图，请根据其内部机制来明确对应岗位及其权力，我还可以帮忙具体解答您需要的内容的。\n\n若您还有具体的上下文字信息可以供我看。我会尽最大力量辅助说明相关职级调评与审批过程和流程，尤其是关于权劢授予的规定等"
+    }
+  ]
+}

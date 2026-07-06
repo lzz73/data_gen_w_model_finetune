@@ -1,0 +1,66 @@
+# ============================================================
+# LLaMA Factory 微调训练模块 - 核心依赖
+# ============================================================
+# 前置要求: Python >= 3.11
+#   推荐使用 conda 创建环境:
+#     conda create -n llamafactory python=3.11 -y
+#     conda activate llamafactory
+#
+# 安装方式:
+#   pip install -r requirements.txt
+#
+# 一键安装 (Windows): 运行 setup_env.bat
+# 注意: torch 建议根据你的 CUDA 版本手动安装
+#   参考: https://pytorch.org/get-started/locally/
+# ============================================================
+
+# --- 核心深度学习框架 ---
+torch>=2.4.0
+torchvision>=0.19.0
+torchaudio>=2.4.0
+transformers>=4.51.0,<=4.57.1,!=4.52.0,!=4.57.0
+datasets>=2.16.0,<=4.0.0
+accelerate>=1.3.0,<=1.11.0
+peft>=0.14.0,<=0.17.1
+trl>=0.18.0,<=0.24.0
+torchdata>=0.10.0,<=0.11.0
+
+# --- 数据处理 & 工具 ---
+einops
+numpy
+pandas
+scipy
+
+# --- 模型和分词器 ---
+sentencepiece
+tiktoken
+modelscope
+hf-transfer
+safetensors
+
+# --- 配置和基础设施 ---
+av>=10.0.0,<=16.0.0
+fire
+omegaconf
+packaging
+protobuf
+pyyaml
+pydantic
+
+# --- 可视化 (可选) ---
+gradio>=4.38.0,<=5.50.0
+matplotlib>=3.7.0
+tyro<0.9.0
+
+# --- API 服务 (可选) ---
+uvicorn
+fastapi
+sse-starlette
+
+# --- 训练加速 (可选，根据需要安装) ---
+# bitsandbytes          # QLoRA 量化训练
+# deepspeed             # DeepSpeed 分布式训练
+# vllm                  # vLLM 推理加速
+# flash-attn            # Flash Attention 加速
+# liger-kernel          # Liger Kernel 优化
+# galore-torch          # GaLore 内存高效优化器
