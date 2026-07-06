@@ -1,44 +1,83 @@
 <template>
   <div class="page-container">
     <PageHeader title="评估任务">
-      <el-button type="primary" @click="showCreateDialog = true">
+      <el-button type="primary" @click="showCreateDialog = true" :disabled="!projectStore.hasProject">
         <el-icon><Plus /></el-icon>创建评估
       </el-button>
     </PageHeader>
 
-    <div class="content-card">
-      <el-table :data="evalTasks" stripe>
+    <EmptyState
+      v-if="!projectStore.hasProject"
+      description="请先在首页选择一个项目"
+      action-text="前往首页"
+      @action="$router.push('/')"
+    />
+
+    <div v-else class="content-card">
+      <el-table :data="evalTasks" stripe v-loading="loadingTasks">
         <el-table-column prop="name" label="任务名称" />
-        <el-table-column prop="model" label="评估模型" width="160" />
-        <el-table-column prop="dataset" label="测试集" width="160" />
-        <el-table-column prop="method" label="评估方式" width="120">
+        <el-table-column label="评估模型" width="160">
           <template #default="{ row }">
-            <el-tag size="small">{{ row.method }}</el-tag>
+            {{ row.model_name || (row.eval_config?.model_name || '-') }}
           </template>
         </el-table-column>
-        <el-table-column prop="score" label="综合得分" width="100">
+        <el-table-column label="状态" width="100">
           <template #default="{ row }">
-            <el-text v-if="row.score" :type="row.score >= 80 ? 'success' : row.score >= 60 ? 'warning' : 'danger'" size="large" tag="b">
-              {{ row.score }}
-            </el-text>
-            <span v-else>-</span>
-          </template>
-        </el-table-column>
-        <el-table-column prop="status" label="状态" width="100">
-          <template #default="{ row }">
-            <el-tag :type="row.status === '已完成' ? 'success' : row.status === '评估中' ? 'primary' : 'info'" size="small">
-              {{ row.status }}
+            <el-tag :type="taskStatusTag(row.status)" size="small">
+              {{ taskStatusLabel(row.status) }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="time" label="创建时间" width="180" />
+        <el-table-column label="进度" width="100">
+          <template #default="{ row }">
+            {{ row.progress || 0 }}%
+          </template>
+        </el-table-column>
+        <el-table-column label="创建时间" width="180">
+          <template #default="{ row }">
+            {{ formatDateTime(row.created_at) }}
+          </template>
+        </el-table-column>
         <el-table-column label="操作" width="160" fixed="right">
           <template #default="{ row }">
-            <el-button v-if="row.status === '已完成'" link type="primary" size="small" @click="$router.push('/evaluation/report')">查看报告</el-button>
-            <el-button v-if="row.status === '待评估'" link type="primary" size="small">启动</el-button>
+            <el-button
+              v-if="row.status === 'completed'"
+              link type="primary" size="small"
+              @click="$router.push('/evaluation/report')"
+            >
+              查看报告
+            </el-button>
+            <el-button
+              v-if="row.status === 'pending' || row.status === 'created'"
+              link type="primary" size="small"
+              :loading="startingTaskId === row.id"
+              @click="handleStartTask(row)"
+            >
+              启动
+            </el-button>
+            <el-button
+              v-if="row.status === 'running'"
+              link type="warning" size="small"
+              @click="handleStopTask(row)"
+            >
+              停止
+            </el-button>
+            <el-button
+              link type="danger" size="small"
+              @click="handleDeleteTask(row)"
+            >
+              删除
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
+
+      <EmptyState
+        v-if="!loadingTasks && evalTasks.length === 0"
+        description="暂无评估任务"
+        action-text="创建评估"
+        @action="showCreateDialog = true"
+      />
     </div>
 
     <!-- 创建评估对话框 -->
@@ -47,46 +86,183 @@
         <el-form-item label="任务名称">
           <el-input v-model="evalForm.name" placeholder="请输入任务名称" />
         </el-form-item>
-        <el-form-item label="评估模型">
-          <el-select v-model="evalForm.model" placeholder="选择已训练模型">
-            <el-option label="电力SFT-Qwen2-7B-v3" value="power_sft_v3" />
-            <el-option label="合同DPO-DeepSeek-7B-v2" value="contract_dpo_v2" />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="测试集">
-          <el-select v-model="evalForm.dataset" placeholder="选择测试集">
-            <el-option label="电力招标测试集 (78条)" value="power_test" />
-            <el-option label="合同条款测试集 (29条)" value="contract_test" />
-          </el-select>
-        </el-form-item>
         <el-form-item label="评审模型">
-          <el-select v-model="evalForm.judgeModel">
-            <el-option label="Qwen2-7B-Instruct (本地)" value="qwen2-local" />
+          <el-select v-model="evalForm.judge_model_id" placeholder="选择评审模型" style="width: 100%">
+            <el-option
+              v-for="m in chatModels"
+              :key="m.id"
+              :label="m.model_name"
+              :value="m.id"
+            />
+            <template #empty>
+              <div style="padding: 10px; color: #909399;">暂无可用模型</div>
+            </template>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="测试数据集">
+          <el-select v-model="evalForm.dataset_id" placeholder="选择数据集" style="width: 100%">
+            <el-option
+              v-for="d in datasets"
+              :key="d.id"
+              :label="`${d.name} (${d.question_count || 0}条)`"
+              :value="d.id"
+            />
+            <template #empty>
+              <div style="padding: 10px; color: #909399;">暂无数据集</div>
+            </template>
           </el-select>
         </el-form-item>
         <el-form-item label="人工复核">
-          <el-switch v-model="evalForm.humanReview" />
+          <el-switch v-model="evalForm.human_review" />
         </el-form-item>
       </el-form>
       <template #footer>
         <el-button @click="showCreateDialog = false">取消</el-button>
-        <el-button type="primary" @click="showCreateDialog = false">创建</el-button>
+        <el-button type="primary" :loading="creating" @click="handleCreate">创建</el-button>
       </template>
     </el-dialog>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted, watch } from 'vue'
+import { useProjectStore } from '@/stores/project'
+import { evalApi, modelApi, datasetApi } from '@/api'
+import { formatDateTime } from '@/composables/useFormatters'
+import { ElMessage } from 'element-plus'
 import PageHeader from '@/components/common/PageHeader.vue'
+import EmptyState from '@/components/common/EmptyState.vue'
+import type { Model, Dataset } from '@/types'
 
+const projectStore = useProjectStore()
+const loadingTasks = ref(false)
+const creating = ref(false)
+const startingTaskId = ref<string | null>(null)
 const showCreateDialog = ref(false)
-const evalForm = reactive({ name: '', model: '', dataset: '', judgeModel: 'qwen2-local', humanReview: false })
+const evalTasks = ref<any[]>([])
+const chatModels = ref<Model[]>([])
+const datasets = ref<Dataset[]>([])
 
-const evalTasks = [
-  { name: '电力SFT-v3评估', model: '电力SFT-Qwen2-7B-v3', dataset: '电力招标测试集', method: 'LLM评审', score: 82, status: '已完成', time: '2026-07-01 08:00' },
-  { name: '合同DPO-v2评估', model: '合同DPO-DeepSeek-7B-v2', dataset: '合同条款测试集', method: 'LLM+人工', score: 75, status: '已完成', time: '2026-06-30 14:00' },
-  { name: '财务SFT-v1评估', model: '财务SFT-Qwen2-7B-v1', dataset: '财务报表测试集', method: 'LLM评审', score: null, status: '评估中', time: '2026-06-29 10:00' },
-  { name: '规章CPT-v1评估', model: '规章CPT-LLaMA3-8B-v1', dataset: '规章制度测试集', method: 'LLM评审', score: null, status: '待评估', time: '2026-06-28 16:00' },
-]
+const evalForm = reactive({
+  name: '',
+  judge_model_id: '',
+  dataset_id: '',
+  human_review: false,
+})
+
+const fetchTasks = async () => {
+  if (!projectStore.currentProjectId) return
+  loadingTasks.value = true
+  try {
+    const res = await evalApi.listTasks(projectStore.currentProjectId)
+    if (Array.isArray(res)) {
+      evalTasks.value = res
+    } else if (res && typeof res === 'object' && 'items' in res) {
+      evalTasks.value = (res as any).items || []
+    } else {
+      evalTasks.value = []
+    }
+  } catch (e) {
+    evalTasks.value = []
+  } finally {
+    loadingTasks.value = false
+  }
+}
+
+const fetchModels = async () => {
+  try {
+    const res = await modelApi.list()
+    const allModels = Array.isArray(res) ? res : []
+    chatModels.value = allModels.filter((m: Model) => m.model_type === 'chat')
+  } catch (e) {
+    chatModels.value = []
+  }
+}
+
+const fetchDatasets = async () => {
+  if (!projectStore.currentProjectId) return
+  try {
+    const res = await datasetApi.list(projectStore.currentProjectId)
+    datasets.value = Array.isArray(res) ? res : []
+  } catch (e) {
+    datasets.value = []
+  }
+}
+
+const handleCreate = async () => {
+  if (!projectStore.currentProjectId) return
+  creating.value = true
+  try {
+    await evalApi.createTask(projectStore.currentProjectId, evalForm)
+    ElMessage.success('评估任务创建成功')
+    showCreateDialog.value = false
+    await fetchTasks()
+  } catch (error: any) {
+    ElMessage.error(error?.message || '创建失败')
+  } finally {
+    creating.value = false
+  }
+}
+
+const handleStartTask = async (row: any) => {
+  if (!projectStore.currentProjectId) return
+  startingTaskId.value = row.id
+  try {
+    await evalApi.startTask(projectStore.currentProjectId, row.id)
+    ElMessage.info('评估任务已启动')
+    await fetchTasks()
+  } catch (error: any) {
+    ElMessage.error(error?.message || '启动失败')
+  } finally {
+    startingTaskId.value = null
+  }
+}
+
+const handleStopTask = async (row: any) => {
+  if (!projectStore.currentProjectId) return
+  try {
+    await evalApi.stopTask(projectStore.currentProjectId, row.id)
+    ElMessage.info('评估任务已停止')
+    await fetchTasks()
+  } catch (error: any) {
+    ElMessage.error(error?.message || '停止失败')
+  }
+}
+
+const handleDeleteTask = async (row: any) => {
+  if (!projectStore.currentProjectId) return
+  try {
+    await evalApi.deleteTask(projectStore.currentProjectId, row.id)
+    ElMessage.success('删除成功')
+    await fetchTasks()
+  } catch (error: any) {
+    ElMessage.error(error?.message || '删除失败')
+  }
+}
+
+const taskStatusTag = (status: string) => {
+  const map: Record<string, string> = { completed: 'success', running: 'primary', pending: 'info', created: 'info', failed: 'danger' }
+  return map[status] || 'info'
+}
+
+const taskStatusLabel = (status: string) => {
+  const map: Record<string, string> = { completed: '已完成', running: '评估中', pending: '待评估', created: '待启动', failed: '失败' }
+  return map[status] || status
+}
+
+watch(() => projectStore.currentProjectId, (newId) => {
+  if (newId) {
+    fetchTasks()
+    fetchModels()
+    fetchDatasets()
+  }
+})
+
+onMounted(() => {
+  if (projectStore.currentProjectId) {
+    fetchTasks()
+    fetchModels()
+    fetchDatasets()
+  }
+})
 </script>

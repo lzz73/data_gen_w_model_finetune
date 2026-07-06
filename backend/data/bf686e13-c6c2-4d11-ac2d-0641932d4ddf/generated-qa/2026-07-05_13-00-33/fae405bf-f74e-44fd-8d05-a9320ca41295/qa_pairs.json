@@ -1,0 +1,49 @@
+{
+  "file_id": "fae405bf-f74e-44fd-8d05-a9320ca41295",
+  "filename": "JavaScript 教程 _ 菜鸟教程.md",
+  "qa_count": 7,
+  "qa_pairs": [
+    {
+      "question": "JavaScript、HTML和CSS在网页开发中分别控制什么？",
+      "answer": "在网页开发中，JavaScript、HTML和CSS这三门语言各自承担着不同的核心职责。HTML主要用于定义网页的具体内容，CSS负责描述网页的布局，而JavaScript则用来控制网页的行为。",
+      "question_type": "fact",
+      "question_id": "e2cc59f9-e3e1-4389-957b-07fae1b66034"
+    },
+    {
+      "question": "JavaScript类部分包含了哪些核心主题？",
+      "answer": "JavaScript类部分包含的核心主题主要有JavaScript类、JavaScript类继承以及JavaScript静态方法。",
+      "question_type": "fact",
+      "question_id": "9ecc4f59-c6b1-4643-b618-5a0359c96c0f"
+    },
+    {
+      "question": "分享笔记时必须填写的两项信息是什么？",
+      "answer": "分享笔记时必须填写的两项信息分别是昵称和邮箱。在进行笔记分享的操作过程中，这两项内容被明确标注为必填项，这意味着用户如果想要成功完成笔记的分享，就必须如实提供自己的昵称以及有效的邮箱地址，否则将无法正常进行分享操作。",
+      "question_type": "fact",
+      "question_id": "016e1b5e-fcac-4855-8be7-0395ebc8548d"
+    },
+    {
+      "question": "HTML/CSS/JS 在线工具的主要功能是什么？",
+      "answer": "HTML/CSS/JS 在线工具的主要功能是支持用户在线编辑HTML、CSS和JS代码，并且能够实时查看代码运行的效果，同时该工具还提供了将优质代码进行保存与分享的功能。",
+      "question_type": "fact",
+      "question_id": "aea69ac8-b660-483d-b2c4-3262a1e65418"
+    },
+    {
+      "question": "JavaScript教程目录中涵盖了哪些与异步编程相关的主题？",
+      "answer": "JavaScript教程目录中涵盖的与异步编程相关的主题主要包括JavaScript异步编程、JavaScript Promise以及JavaScript async/await这三个部分。",
+      "question_type": "fact",
+      "question_id": "668a168c-2621-408a-ac9a-de38fb0851ed"
+    },
+    {
+      "question": "JavaScript 是什么领域的编程语言？",
+      "answer": "JavaScript 是 Web 领域的编程语言，所有现代的 HTML 页面都可以使用它，同时它也是一门非常容易学习的编程语言。",
+      "question_type": "fact",
+      "question_id": "c886f802-9c8c-473f-8dd5-5cfa8ac5ee34"
+    },
+    {
+      "question": "该JavaScript教程的来源网址是什么？",
+      "answer": "该JavaScript教程的来源网址是https://www.runoob.com/js/js-tutorial.html，这是一个提供编程学习资源的在线平台，专门用于帮助开发者学习和掌握JavaScript编程语言的基础知识与核心概念。",
+      "question_type": "fact",
+      "question_id": "8d63f98a-cb4e-456d-ba54-8f3c1869fc3c"
+    }
+  ]
+}

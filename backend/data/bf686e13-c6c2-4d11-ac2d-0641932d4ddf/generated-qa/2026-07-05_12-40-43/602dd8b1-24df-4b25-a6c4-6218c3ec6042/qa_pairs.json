@@ -1,0 +1,25 @@
+{
+  "file_id": "602dd8b1-24df-4b25-a6c4-6218c3ec6042",
+  "filename": "菜鸟教程.md",
+  "qa_count": 3,
+  "qa_pairs": [
+    {
+      "question": "CSS教程中包含哪些与选择器相关的主题？",
+      "answer": "CSS教程中包含的与选择器相关的主题主要有CSS Id和Class选择器、CSS属性选择器以及CSS伪类和CSS伪元素。此外，教程中还专门提供了CSS选择器参考手册，用于查阅更完整的选择器语法和浏览器支持等资料。",
+      "question_type": "fact",
+      "question_id": "483e0058-91b0-43b7-9648-71268fe4fb53"
+    },
+    {
+      "question": "HTML教程涵盖了哪些主要的学习主题？",
+      "answer": "HTML教程涵盖了非常丰富的主要学习主题，具体包括HTML简介、编辑器、基础语法、元素、属性、标题、段落、文本格式化、链接、头部信息、CSS样式、图像、表格、列表、区块、布局、表单、框架、颜色及颜色名与颜色值、脚本、字符实体、URL、速查列表、标签简写及全称、总结，以及XHTML简介和HTML测验，全面覆盖了从入门基础到进阶应用的各个核心知识点。",
+      "question_type": "summary",
+      "question_id": "575ca569-873a-4cc7-8a91-22a1406b9346"
+    },
+    {
+      "question": "JavaScript 类的教程中包含了哪些核心主题？",
+      "answer": "JavaScript 类的教程中包含了三个核心主题，分别是 JavaScript 类的基础概念介绍、JavaScript 类的继承机制以及 JavaScript 静态方法的使用。",
+      "question_type": "fact",
+      "question_id": "d46e21a9-7779-4ae3-bb7a-2f90dbc54b04"
+    }
+  ]
+}

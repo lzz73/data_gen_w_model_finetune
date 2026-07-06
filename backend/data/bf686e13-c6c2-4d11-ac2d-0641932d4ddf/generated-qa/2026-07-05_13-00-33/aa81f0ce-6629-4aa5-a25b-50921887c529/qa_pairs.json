@@ -1,0 +1,49 @@
+{
+  "file_id": "aa81f0ce-6629-4aa5-a25b-50921887c529",
+  "filename": "CSS 教程 _ 菜鸟教程.md",
+  "qa_count": 7,
+  "qa_pairs": [
+    {
+      "question": "CSS教程中包含哪些与选择器相关的主题？",
+      "answer": "CSS教程中包含的与选择器相关的主题主要有CSS Id和Class选择器、CSS属性选择器、CSS伪类以及CSS伪元素。此外，在CSS组合选择符的部分也涉及了选择器的组合使用方法，而CSS分组和嵌套的内容同样涵盖了选择器在分组与嵌套场景下的具体应用。",
+      "question_type": "fact",
+      "question_id": "9f9f6729-fafa-42c2-913f-854fe1a45d7b"
+    },
+    {
+      "question": "菜鸟教程的CSS参考手册中包含了哪些具体的参考资料分类？",
+      "answer": "菜鸟教程的CSS参考手册中包含了五个具体的参考资料分类，分别是CSS属性、CSS选择器参考手册、CSS声音参考手册、CSS单位以及CSS颜色参考手册。这些分类涵盖了更完整的CSS属性、选择器的语法和浏览器支持等资料，为学习和使用CSS提供了全面的内容支持。",
+      "question_type": "fact",
+      "question_id": "7a6af93e-a7d7-4782-ae88-867f7ea111a0"
+    },
+    {
+      "question": "HTML/CSS/JS 在线工具除了可以在线编辑代码并实时查看效果外，还支持什么操作？",
+      "answer": "HTML/CSS/JS 在线工具除了支持在线编辑HTML、CSS、JS代码并实时查看运行效果之外，还支持将优质代码进行保存与分享的操作。",
+      "question_type": "fact",
+      "question_id": "e58de3af-dfae-43b2-b456-202cda6a1f27"
+    },
+    {
+      "question": "CSS3教程中涵盖了哪些与转换和动画相关的主题？",
+      "answer": "CSS3教程中涵盖的与转换和动画相关的主题主要包括CSS3 2D转换、CSS3 3D转换、CSS3过渡以及CSS3动画，这些内容系统地展示了如何在网页中实现各类元素的空间变换与动态效果。",
+      "question_type": "fact",
+      "question_id": "d6c0b581-9c13-4a86-9c31-5e9353f9039a"
+    },
+    {
+      "question": "CSS的全称是什么？",
+      "answer": "CSS的全称是Cascading Style Sheets，中文通常翻译为层叠样式表。它是一种专门用来为结构化文档（例如HTML文档或XML应用）添加样式（包括字体、间距和颜色等）的计算机语言，其文件扩展名为.css。",
+      "question_type": "fact",
+      "question_id": "986b94b3-ccbd-4d9f-bae0-80b5c6b650df"
+    },
+    {
+      "question": "该文本的主题是什么？",
+      "answer": "该文本的主题是CSS（层叠样式表）教程，主要面向想要学习CSS的读者，提供有关CSS的基础知识、语法规则以及相关应用技巧的系统性学习指导与教学内容。",
+      "question_type": "summary",
+      "question_id": "ec9be85b-4458-4654-b460-20fff01f275f"
+    },
+    {
+      "question": "分享笔记时必须填写的两项信息是什么？",
+      "answer": "分享笔记时必须填写的两项信息分别是昵称和邮箱。在进行笔记分享的操作过程中，系统明确要求用户必须提供这两项内容，其中昵称用于标识分享者的身份，邮箱则用于记录联系地址，这两者都是不可或缺的必填项，只有完整填写后才能顺利完成笔记的分享操作。",
+      "question_type": "fact",
+      "question_id": "de60c031-3a00-4919-bcc6-45c6151568ff"
+    }
+  ]
+}

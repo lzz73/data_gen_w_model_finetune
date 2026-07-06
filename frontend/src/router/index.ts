@@ -40,6 +40,12 @@ const routes: RouteRecordRaw[] = [
         meta: { title: '问答对生成', group: '数据治理' },
       },
       {
+        path: 'data-governance/manual-generate',
+        name: 'ManualGenerate',
+        component: () => import('@/views/data-governance/ManualGenerate.vue'),
+        meta: { title: '人工生成', group: '数据治理' },
+      },
+      {
         path: 'data-governance/validate',
         name: 'DataValidate',
         component: () => import('@/views/data-governance/DataValidate.vue'),
@@ -50,6 +56,12 @@ const routes: RouteRecordRaw[] = [
         name: 'DatasetSplit',
         component: () => import('@/views/data-governance/DatasetSplit.vue'),
         meta: { title: '数据集划分', group: '数据治理' },
+      },
+      {
+        path: 'data-governance/model-config',
+        name: 'DataGovernanceModelConfig',
+        component: () => import('@/views/data-governance/ModelConfig.vue'),
+        meta: { title: '模型配置', group: '数据治理' },
       },
       // 微调训练
       {

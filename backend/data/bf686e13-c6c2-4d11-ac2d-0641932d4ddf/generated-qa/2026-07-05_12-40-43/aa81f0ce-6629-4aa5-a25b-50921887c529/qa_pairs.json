@@ -1,0 +1,49 @@
+{
+  "file_id": "aa81f0ce-6629-4aa5-a25b-50921887c529",
+  "filename": "CSS 教程 _ 菜鸟教程.md",
+  "qa_count": 7,
+  "qa_pairs": [
+    {
+      "question": "Python3 教程中包含哪些基本数据类型的学习内容？",
+      "answer": "Python3 教程中包含的基本数据类型学习内容非常丰富，主要涵盖了数字、字符串、列表、元组、字典和集合。此外，教程中还专门设置了关于基本数据类型的整体介绍、数据类型转换以及数据结构的深入学习内容，帮助全面掌握 Python3 的各种基本数据类型及其相关操作。",
+      "question_type": "fact",
+      "question_id": "16780275-385b-4123-a43b-e903572b5d93"
+    },
+    {
+      "question": "CSS教程涵盖的列表内容中，与盒子模型相关的属性有哪些？",
+      "answer": "在CSS教程涵盖的列表内容中，与盒子模型相关的属性主要包括CSS盒子模型本身，以及构成该模型的核心组成部分，即CSS Border（边框）、CSS轮廓（outline）属性、CSS margin（外边距）和CSS padding（填充）。这些属性共同定义了元素在页面中所占据的空间、边框样式及其与周围元素的距离关系。",
+      "question_type": "fact",
+      "question_id": "e5b4283a-a866-4050-b0e4-3f04ea246db0"
+    },
+    {
+      "question": "根据文档内容，CSS 的全称是什么？它的主要作用和文件扩展名分别是什么？",
+      "answer": "CSS的全称是Cascading Style Sheets，即层叠样式表。它的主要作用是一种用来为结构化文档（如HTML文档或XML应用）添加样式（包括字体、间距和颜色等）的计算机语言，通过使用CSS可以大大提升网页开发的工作效率，同时控制多重网页的样式和布局。CSS的文件扩展名为.css。",
+      "question_type": "fact",
+      "question_id": "abf8cdbe-90e0-4b23-89fb-1a9ea0d3e552"
+    },
+    {
+      "question": "HTML 教程涵盖了哪些与颜色相关的主题？",
+      "answer": "HTML 教程涵盖了两个与颜色相关的主题，分别是 HTML 颜色和 HTML 颜色名，此外还包括 HTML 颜色值。这些内容详细介绍了网页中颜色的具体应用、各种颜色的命名以及颜色值的表示方法。",
+      "question_type": "fact",
+      "question_id": "586aa70a-5e37-40c2-b72a-eb800b20a314"
+    },
+    {
+      "question": "该HTML教程的来源网址是什么？",
+      "answer": "该HTML教程的来源网址是https://www.runoob.com/html/html-tutorial.html，这是菜鸟教程官方提供的HTML学习指南的完整网络地址，学习者可以通过访问该链接来获取详细的HTML基础与进阶知识内容。",
+      "question_type": "fact",
+      "question_id": "9115b5c7-dcc2-4363-96f5-701003d2d11f"
+    },
+    {
+      "question": "HTML文档的后缀名有哪些？",
+      "answer": "HTML文档的后缀名主要有.html和.htm两种。这两种后缀名在功能和使用效果上没有任何区别，都可以正常使用。其中，.htm是历史遗留的8.3字符限制命名方式，源于早期DOS操作系统只能支持长度为三位后缀名的限制；而.html则是为长文件名格式命名的标准写法。在现在的系统环境下，推荐使用无限制长度命名方式的.html后缀名，以保持命名规则的一致性。",
+      "question_type": "fact",
+      "question_id": "6f54276f-93d3-4c29-b932-36ce354be953"
+    },
+    {
+      "question": "根据文本及用户笔记的论述，为什么HTML文档的后缀名推荐使用.html而不是.htm？",
+      "answer": "推荐使用.html作为HTML文档的后缀名，主要基于命名的一致性原则与历史技术演进。.htm后缀源于早期DOS操作系统的8.3文件格式限制，该格式规定扩展名长度只能为三位，因此当时只能采用.htm。而.html代表超文本标记语言，属于长文件名格式。在现代操作系统中已不再受8.3字符限制，若继续使用.htm便与当前无长度限制的命名规则不一致，违背了命名应符合同样规则的一致性原则。为了保持开发环境与大量变量命名规则的统一，降低合作开发难度，理应选择无长度限制的.html后缀名。",
+      "question_type": "reasoning",
+      "question_id": "ce7b654b-a63c-4ea7-bc28-b3cc83d68e21"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "file_id": "44b0afc0-2bce-4a1a-b1a0-0389cc4b2522",
+  "filename": "Python3 教程 _ 菜鸟教程.md",
+  "qa_count": 5,
+  "qa_pairs": [
+    {
+      "question": "Python 3.0 在设计时为什么没有考虑向下兼容？",
+      "answer": "Python 3.0 在设计时没有考虑向下兼容，主要是为了不带入过多的累赘。作为相对于早期版本的一次较大升级，Python 3.0 希望摆脱历史版本的包袱与限制，从而实现更优的设计与更彻底的改进，因此选择放弃了向下兼容性。",
+      "question_type": "reasoning",
+      "question_id": "cc489d69-0b21-41cf-b2b6-b4d324f15938"
+    },
+    {
+      "question": "Python3 教程中包含哪些基本数据类型？",
+      "answer": "Python3教程中包含的基本数据类型主要有数字、字符串、列表、元组、字典和集合。这些数据类型构成了Python3编程的基础，其中数字用于处理数值，字符串用于处理文本数据，列表和元组用于存储有序的数据集合，字典用于存储具有映射关系的键值对，而集合则用于存储无序且不重复的元素。掌握这些基本数据类型是进行Python3编程的重要前提。",
+      "question_type": "fact",
+      "question_id": "292e763f-57b6-4bfa-abeb-17f54061604e"
+    },
+    {
+      "question": "在Python脚本中使用 ./script.py 方式调用时，第一行代码 #!/usr/bin/python3 的作用是什么？",
+      "answer": "在Python脚本中使用 ./script.py 方式调用时，第一行代码 #!/usr/bin/python3 的作用是指定解释器的路径。它告诉操作系统在执行该脚本时，调用 /usr/bin 目录下的 python3 解释器来运行文件中的代码。这种写法相当于写死了 python3 的具体路径，仅在被直接以脚本方式调用时生效；如果使用 python script.py 命令调用，该行则会被忽略，等同于注释。此外，为了防止操作系统用户没有将 python3 安装在默认的 /usr/bin 路径里，更推荐使用 #!/usr/bin/env python3 的写法，这种写法会让系统首先到环境设置中查找 python3 的安装路径，再调用对应路径下的解释器程序完成操作。",
+      "question_type": "reasoning",
+      "question_id": "4188a5e9-559f-4f65-9b32-95d0487579a4"
+    },
+    {
+      "question": "Python3连接MySQL数据库可以使用哪两种驱动？",
+      "answer": "Python3连接MySQL数据库可以使用mysql-connector和PyMySQL这两种驱动。mysql-connector是官方提供的数据库连接驱动，能够支持Python程序与MySQL数据库进行交互操作；PyMySQL则是另一种常用的MySQL数据库连接驱动，同样可以实现Python3环境下的MySQL数据库连接与数据访问功能。",
+      "question_type": "fact",
+      "question_id": "8ed117be-694b-499c-9b0e-d28b57467097"
+    },
+    {
+      "question": "该文本提供的Python3教程来源于哪个网站？",
+      "answer": "该文本提供的Python3教程来源于菜鸟教程网站，其对应的网址为https://www.runoob.com/python3/python3-tutorial.html，这是一个专门提供各类编程语言学习资料和基础教程的在线平台。",
+      "question_type": "fact",
+      "question_id": "dad8aa4b-05eb-4f2a-909e-b578ca8ca140"
+    }
+  ]
+}

@@ -34,10 +34,16 @@
       <div class="card-title">选择数据版本</div>
       <el-form label-width="100px">
         <el-form-item label="数据集">
-          <el-select v-model="trainConfig.dataset" placeholder="请选择数据集">
-            <el-option label="电力招标SFT数据集 v3" value="power_sft_v3" />
-            <el-option label="合同条款DPO数据集 v2" value="contract_dpo_v2" />
-            <el-option label="规章制度CPT数据集 v1" value="rules_cpt_v1" />
+          <el-select v-model="trainConfig.dataset" placeholder="请选择数据集" style="width: 100%">
+            <el-option
+              v-for="d in availableDatasets"
+              :key="d.id"
+              :label="`${d.name} (${d.question_count || 0}条)`"
+              :value="d.id"
+            />
+            <template #empty>
+              <div style="padding: 10px; color: #909399;">暂无数据集，请先在数据治理中创建</div>
+            </template>
           </el-select>
         </el-form-item>
         <el-form-item label="格式匹配">
@@ -132,15 +138,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed } from 'vue'
+import { ref, reactive, computed, onMounted } from 'vue'
+import { useProjectStore } from '@/stores/project'
+import { datasetApi } from '@/api'
 import PageHeader from '@/components/common/PageHeader.vue'
 import { ElMessage } from 'element-plus'
+import type { Dataset } from '@/types'
 
+const projectStore = useProjectStore()
 const currentStep = ref(0)
+const availableDatasets = ref<Dataset[]>([])
 
 const trainConfig = reactive({
   mode: 'sft',
-  dataset: 'power_sft_v3',
+  dataset: '',
   baseModel: 'qwen2-7b',
   preset: 'standard',
   lr: '2e-5',
@@ -181,8 +192,22 @@ const hardwareCheck = computed(() => {
   return { type: 'success' as const, msg: '硬件自检通过：显存充足，可以开始训练' }
 })
 
+const fetchDatasets = async () => {
+  if (!projectStore.currentProjectId) return
+  try {
+    const res = await datasetApi.list(projectStore.currentProjectId)
+    availableDatasets.value = Array.isArray(res) ? res : []
+  } catch (e) {
+    availableDatasets.value = []
+  }
+}
+
 const selectGpu = (row: any) => { trainConfig.gpu = row.name }
 const submitTask = () => { ElMessage.success('训练任务已提交') }
+
+onMounted(() => {
+  if (projectStore.currentProjectId) fetchDatasets()
+})
 </script>
 
 <style lang="scss" scoped>

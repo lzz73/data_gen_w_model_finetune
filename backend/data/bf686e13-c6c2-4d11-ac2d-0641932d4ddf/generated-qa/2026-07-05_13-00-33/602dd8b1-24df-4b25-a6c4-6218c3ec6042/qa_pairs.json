@@ -1,0 +1,25 @@
+{
+  "file_id": "602dd8b1-24df-4b25-a6c4-6218c3ec6042",
+  "filename": "菜鸟教程.md",
+  "qa_count": 3,
+  "qa_pairs": [
+    {
+      "question": "菜鸟教程的来源网址是什么？",
+      "answer": "菜鸟教程的来源网址是https://www.runoob.com/，这是该教程所属的官方网络地址，用户可以通过访问这个网址来获取菜鸟教程提供的各类编程学习资源与相关技术文档。",
+      "question_type": "fact",
+      "question_id": "53c224f4-30d2-4a2d-8364-bdbf6faaf7a1"
+    },
+    {
+      "question": "菜鸟教程网站提供的测验类型涵盖了哪些编程语言或技术？",
+      "answer": "菜鸟教程网站提供的测验类型涵盖了多种编程语言与相关技术，具体包括HTML、HTML5、XHTML、CSS、JavaScript、jQuery、XML、ASP、PHP、SQL以及Python。",
+      "question_type": "fact",
+      "question_id": "5918a062-d20e-4c1c-9aba-b2e82ca0e0a6"
+    },
+    {
+      "question": "提供的在线实例中包含了哪些编程语言或技术的实例？",
+      "answer": "提供的在线实例中包含了多种编程语言与技术的实例，具体涵盖HTML、CSS、JavaScript、Ajax、jQuery、XML以及Java。",
+      "question_type": "fact",
+      "question_id": "4f996058-306e-4bea-a68c-0c28ecb502e8"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "file_id": "fae405bf-f74e-44fd-8d05-a9320ca41295",
+  "filename": "JavaScript 教程 _ 菜鸟教程.md",
+  "qa_count": 7,
+  "qa_pairs": [
+    {
+      "question": "Python 3.0 相对于早期版本在设计上有什么重要考量？同时，根据教程内容，Python 2 的官方更新支持是在何时停止的？",
+      "answer": "Python 3.0 相对于早期版本在设计上的一个重要考量是为了不带入过多的累赘，因此在设计时没有考虑向下兼容。同时，官方已于2020年1月1日停止了对 Python 2 的更新支持。",
+      "question_type": "fact",
+      "question_id": "c93a6d33-abb5-4e88-bcd5-da937fd0f597"
+    },
+    {
+      "question": "在web开发人员必须学习的3门语言中，JavaScript负责控制网页的什么？",
+      "answer": "在web开发人员必须学习的3门语言中，JavaScript负责控制网页的行为。在web开发领域，HTML定义了网页的内容，CSS描述了网页的布局，而JavaScript则专门用来控制网页的行为，它决定了网页的交互与动态效果，并与HTML和CSS协同工作，共同构成完整的网页。",
+      "question_type": "fact",
+      "question_id": "d86b7578-ea22-411e-ac48-2891e6177342"
+    },
+    {
+      "question": "在 Web 开发中，JavaScript 与 HTML、CSS 各自承担什么核心角色，它们之间是如何协同工作的？",
+      "answer": "在 Web 开发中，HTML、CSS 与 JavaScript 各自承担着不可或缺的核心角色并紧密协同工作。HTML 的核心角色是定义网页的具体内容，构成了网页的基础骨架与信息载体；CSS 的核心角色是描述网页的布局与样式，负责页面的视觉呈现和美化；而 JavaScript 的核心角色则是控制网页的行为，赋予页面动态交互的能力。这三者协同工作，共同构建出完整的现代网页：HTML 搭建内容结构，CSS 赋予其视觉外观，JavaScript 则在此基础上操控行为与逻辑，使得网页不再是静态的展示，而是能够响应用户操作的动态应用。",
+      "question_type": "reasoning",
+      "question_id": "eda2176a-8b45-4ee4-b70f-4af357d1b7d7"
+    },
+    {
+      "question": "在命令窗口中查看Python版本可以使用哪两种命令？",
+      "answer": "在命令窗口中查看Python版本可以使用以下两种命令：第一种是使用大写字母V参数的命令，即“python -V”；第二种是使用完整单词参数的命令，即“python --version”。在Windows系统中，可以通过按下win+R组合键调出cmd运行框来输入这些命令，执行后系统会显示当前所使用的Python版本号信息。",
+      "question_type": "fact",
+      "question_id": "34850826-4b17-4d8f-aa81-d599889b33c4"
+    },
+    {
+      "question": "在Python脚本中使用 ./script.py 方式调用时，脚本第一行的 #!/usr/bin/python3 起什么作用？",
+      "answer": "在Python脚本中使用 ./script.py 方式调用时，脚本第一行的 #!/usr/bin/python3 的作用是指定解释器的路径。它告诉操作系统在执行该脚本时，调用 /usr/bin 目录下的 python3 解释器来运行代码。这种写法相当于写死了 python3 的具体路径。为了防止操作系统用户没有将 python3 安装在默认的 /usr/bin 路径里，更推荐的写法是使用 #!/usr/bin/env python3，这样系统会首先到 env 环境设置里查找 python3 的安装路径，然后再调用对应路径下的解释器程序完成操作。",
+      "question_type": "fact",
+      "question_id": "cdc9300c-766e-4442-b6b2-82b64be2cb66"
+    },
+    {
+      "question": "分享笔记时必须填写的字段有哪些？",
+      "answer": "分享笔记时必须填写的字段包括昵称和邮箱。在进行笔记分享的操作过程中，系统明确要求用户必须提供这两项基本信息才能完成分享，其中昵称和邮箱均被标记为必填项，缺一不可。",
+      "question_type": "fact",
+      "question_id": "cf2630d4-0cfd-4c2f-97ad-4adc9822a951"
+    },
+    {
+      "question": "分享笔记时必须填写的两项信息是什么？",
+      "answer": "分享笔记时必须填写的两项信息分别是昵称和邮箱，并且这两项信息均为必填内容，在提交分享笔记时缺一不可。",
+      "question_type": "fact",
+      "question_id": "c77a3cd8-32e4-4304-b786-ab532c52171b"
+    }
+  ]
+}

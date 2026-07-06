@@ -1,0 +1,37 @@
+{
+  "file_id": "c92dfe6c-632f-40f0-a656-973b05e84141",
+  "filename": "HTML 教程 _ 菜鸟教程.md",
+  "qa_count": 5,
+  "qa_pairs": [
+    {
+      "question": "HTML教程涵盖的学习主题有哪些？",
+      "answer": "HTML教程涵盖的学习主题非常丰富，主要包括HTML简介、编辑器、基础语法、元素、属性、标题、段落、文本格式化、链接、头部信息、CSS样式、图像、表格、列表、区块、布局、表单、框架、颜色及颜色名与颜色值、脚本、字符实体、URL、速查列表、标签简写及全称、总结、测验，以及XHTML简介。",
+      "question_type": "fact",
+      "question_id": "b6b875a5-b536-4cbb-b120-fb2814519ba8"
+    },
+    {
+      "question": "该HTML教程的来源网址是什么？",
+      "answer": "该HTML教程的来源网址是https://www.runoob.com/html/html-tutorial.html，这个网址指向了菜鸟教程平台提供的HTML教程页面，是学习者获取HTML相关知识的具体网络地址。",
+      "question_type": "fact",
+      "question_id": "1f424306-a80b-489d-9344-db1630564a90"
+    },
+    {
+      "question": "HTML5中用于实现客户端数据存储的技术有哪些？",
+      "answer": "在HTML5中，用于实现客户端数据存储的技术主要包括Web存储、Web SQL以及Web IndexedDB。",
+      "question_type": "fact",
+      "question_id": "fab273b4-f14a-4bfa-823a-b2ec22c0104d"
+    },
+    {
+      "question": "为什么中文网页需要使用 <meta charset=\"utf-8\"> 声明编码？",
+      "answer": "中文网页需要使用 <meta charset=\"utf-8\"> 声明编码，主要是为了防止网页出现乱码。如果不进行该声明，浏览器可能无法正确解析中文字符。此外，有些浏览器（如 360 浏览器）会默认将 GBK 设置为编码格式，在这种情况下，则需要将编码声明调整为 <meta charset=\"gbk\"> 以确保网页正常显示。",
+      "question_type": "reasoning",
+      "question_id": "56146fad-fb02-4ace-8a92-fd47b10b6c23"
+    },
+    {
+      "question": "超文本标记语言（HTML）的主要用途是什么？",
+      "answer": "超文本标记语言（HTML）的主要用途是作为一种用于创建网页的标准标记语言，帮助用户建立自己的WEB站点。HTML运行在浏览器上，由浏览器来进行解析，通过它可以将网页内容呈现出来。HTML是一种很容易学习的语言，能够让人快速掌握并使用它来完成站点的创建工作。",
+      "question_type": "fact",
+      "question_id": "36eeb0f9-4bfe-4df5-8fd9-97e5691cbcf6"
+    }
+  ]
+}

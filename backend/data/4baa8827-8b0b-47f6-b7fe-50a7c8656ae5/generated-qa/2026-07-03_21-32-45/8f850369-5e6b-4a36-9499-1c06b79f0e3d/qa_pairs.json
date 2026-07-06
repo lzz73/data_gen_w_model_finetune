@@ -1,0 +1,25 @@
+{
+  "file_id": "8f850369-5e6b-4a36-9499-1c06b79f0e3d",
+  "filename": "远光《公司支出管理办法（2024）》软件.pdf",
+  "qa_count": 3,
+  "qa_pairs": [
+    {
+      "question": "材料采购的审批权限中，高级副总裁的审批额度是多少？",
+      "answer": "",
+      "question_type": "fact",
+      "question_id": "d65a6dd1-0d1f-4e3b-9b68-b6dd1518ec4c"
+    },
+    {
+      "question": "股权投资和兼并收购支出的审批权归属于谁？",
+      "answer": "",
+      "question_type": "fact",
+      "question_id": "0e4312a0-8fa9-40d8-b0cb-82a869c97a11"
+    },
+    {
+      "question": "房屋租金支出在审批时除了需要按照权限审批外，还需经过什么部门的审批？",
+      "answer": "",
+      "question_type": "reasoning",
+      "question_id": "15f96e17-710b-4beb-bc64-ab85bb551da3"
+    }
+  ]
+}

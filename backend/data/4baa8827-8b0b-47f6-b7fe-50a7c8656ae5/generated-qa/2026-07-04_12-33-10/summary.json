@@ -1,0 +1,18 @@
+{
+  "task_id": "2b306253-50f5-479c-a125-eb0ac303e63c",
+  "project_id": "4baa8827-8b0b-47f6-b7fe-50a7c8656ae5",
+  "total_chunks": 18,
+  "processed_chunks": 2,
+  "skipped_chunks": 0,
+  "created_questions": 2,
+  "created_answers": 2,
+  "failed_answers": 0,
+  "files": {
+    "8f850369-5e6b-4a36-9499-1c06b79f0e3d": {
+      "filename": "远光《公司支出管理办法（2024）》软件.pdf",
+      "qa_count": 2,
+      "chunks_processed": 2,
+      "chunks_skipped": 0
+    }
+  }
+}

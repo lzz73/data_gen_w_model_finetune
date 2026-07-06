@@ -1,0 +1,361 @@
+{
+  "file_id": "44b0afc0-2bce-4a1a-b1a0-0389cc4b2522",
+  "filename": "Python3 教程 _ 菜鸟教程.md",
+  "qa_count": 59,
+  "qa_pairs": [
+    {
+      "question": "Python 3.0 在设计时为什么没有考虑向下兼容？",
+      "answer": "Python 3.0 在设计时没有考虑向下兼容，主要是为了不带入过多的累赘。作为相对于早期版本的一次较大升级，Python 3.0 希望摆脱历史版本的包袱与限制，从而实现更优的设计与更彻底的改进，因此选择放弃了向下兼容性。",
+      "question_type": "reasoning",
+      "question_id": "e8cfbb2a-8a6a-4c2e-8b87-49a101cd6df3"
+    },
+    {
+      "question": "Python 3.0 在设计时为什么没有考虑向下兼容？",
+      "answer": "Python 3.0 在设计的时候没有考虑向下兼容，主要是为了不带入过多的累赘。",
+      "question_type": "reasoning",
+      "question_id": "089780cf-604a-4954-9a55-a969b3b24dce"
+    },
+    {
+      "question": "在Python脚本中，`#!/usr/bin/python3` 和 `#!/usr/bin/env python3` 这两种指定解释器的方式有什么区别？为什么推荐使用后者？",
+      "answer": "在Python脚本中，`#!/usr/bin/python3` 是直接写死了python3解释器的绝对路径，告诉操作系统执行脚本时调用 /usr/bin 目录下的 python3 解释器；而 `#!/usr/bin/env python3` 则是在执行时去操作系统的环境设置中查找 python3 的安装路径，然后再调用对应路径下的解释器程序完成操作。推荐使用 `#!/usr/bin/env python3` 这种写法，因为它是为了防止操作系统用户没有将 python3 安装在默认的 /usr/bin 路径里，通过在环境变量中动态查找，能够更灵活、准确地定位到实际的解释器位置，避免了因路径写死而导致的找不到解释器无法运行的问题。",
+      "question_type": "reasoning",
+      "question_id": "49fec224-b9ed-43a5-a3c3-5ef0ca7a62e2"
+    },
+    {
+      "question": "根据文本及用户笔记，HTML文档后缀名.htm和.html在历史渊源和现代推荐使用上有何区别与联系？",
+      "answer": "HTML文档后缀名.htm和.html在本质上没有区别，两者都是静态网页文件的扩展名，可以互相更换而不会引起打开错误。它们的历史渊源区别在于，.htm是来源于老的8.3文件格式，由于DOS操作系统只能支持长度为三位的后缀名，因此采用了htm作为超文本标记的缩写；而.html则是为长文件名格式命名的超文本标记语言缩写，在Windows系统下两者并无差异，htm是为了兼容过去的DOS命名格式而存在的。在现代推荐使用上，推荐使用长后缀名.html。因为命名应遵从含义清晰、简洁、一致性原则，既然现在命名时并未遵守8.3字符限制规则，从一致性原则出发，也应该选择无长度限制的命名方式.html，避免在合作开发时因规则不一致而人为提高开发难度。",
+      "question_type": "reasoning",
+      "question_id": "e6415abf-16c8-4173-a495-25ff873eaedb"
+    },
+    {
+      "question": "CSS参考手册中包含了哪些具体的参考资料分类？",
+      "answer": "CSS参考手册中包含的具体参考资料分类有CSS属性、CSS选择器参考手册、CSS声音参考手册、CSS单位以及CSS颜色参考手册这五个分类。",
+      "question_type": "fact",
+      "question_id": "e11037e8-c727-43ec-9749-00c8ed107594"
+    },
+    {
+      "question": "CSS参考手册包含了哪些具体的参考资料分类？",
+      "answer": "CSS参考手册包含了五种具体的参考资料分类，分别是CSS属性、CSS选择器参考手册、CSS声音参考手册、CSS单位以及CSS颜色参考手册。",
+      "question_type": "fact",
+      "question_id": "6c0a3182-2dc8-4a55-96b2-36e74c8ed437"
+    },
+    {
+      "question": "在Web开发中，JavaScript与HTML、CSS各自承担的核心职责是什么？",
+      "answer": "在Web开发中，HTML、CSS与JavaScript各自承担着明确的核心职责。HTML负责定义网页的具体内容，构成了网页的基础骨架与信息；CSS用于描述网页的布局与视觉呈现样式，决定了网页的外观；而JavaScript则控制了网页的行为，负责实现交互逻辑与动态功能，使网页能够对用户操作做出响应。",
+      "question_type": "summary",
+      "question_id": "5d81e961-7a7a-4757-af66-f4b1cfae38a1"
+    },
+    {
+      "question": "菜鸟教程的官方网址是什么",
+      "answer": "菜鸟教程的官方网址是 runoob.com，完整的网站链接地址为 https://www.runoob.com/。该网站自2013年起运营，是一个提供各类编程语言、前端开发、后端开发、数据库及人工智能等领域教程与在线实例的综合学习平台，所有内容均在此官方域名下发布。",
+      "question_type": "fact",
+      "question_id": "a177350e-d0a8-4c78-86cd-477c4f165538"
+    },
+    {
+      "question": "菜鸟教程网站提供的测验类型涵盖了哪些编程语言或技术？",
+      "answer": "菜鸟教程网站提供的测验类型涵盖了多种编程语言与技术，具体包括HTML、HTML5、XHTML、CSS、JavaScript、jQuery、XML、ASP、PHP、SQL以及Python。",
+      "question_type": "fact",
+      "question_id": "65f866c6-6324-4996-ba17-9e61e3154cae"
+    },
+    {
+      "question": "根据文档内容，CSS的定义、作用及其在当前网页开发中的支持状态是什么？",
+      "answer": "CSS（Cascading Style Sheets，层叠样式表）是一种用来为结构化文档（如 HTML 文档或 XML 应用）添加样式（字体、间距和颜色等）的计算机语言，其文件扩展名为 .css。它的主要作用是通过同时控制多重网页的样式和布局，大大提升网页开发的工作效率。在当前的网页开发中，CSS3 现已被大部分现代浏览器支持，而下一版的 CSS4 仍在开发中。",
+      "question_type": "summary",
+      "question_id": "a3676ecf-3a04-45de-b70e-3ba548651db0"
+    },
+    {
+      "question": "菜鸟教程的来源网址是什么？",
+      "answer": "菜鸟教程的来源网址是https://www.runoob.com/，这是该教程官方网站的统一资源定位符，通过访问这个网址，用户可以直接进入菜鸟教程的主页，获取其中提供的各类编程语言与基础技术的学习资料及在线指导内容。",
+      "question_type": "fact",
+      "question_id": "cf312c31-3d47-49c2-8004-bef7f40db4e9"
+    },
+    {
+      "question": "CSS3教程中包含哪些与转换和动画效果相关的主题？",
+      "answer": "CSS3教程中与转换和动画效果相关的主题非常丰富，主要涵盖了CSS3 2D转换、CSS3 3D转换、CSS3过渡以及CSS3动画这四个核心主题，此外在CSS参考手册部分也包含了CSS动画相关的参考内容。",
+      "question_type": "fact",
+      "question_id": "5f5c7c69-eaf3-4db1-b3a2-90b88cc15417"
+    },
+    {
+      "question": "根据文档内容，CSS的主要定义及其在网页开发中的核心作用是什么？",
+      "answer": "CSS（Cascading Style Sheets，层叠样式表）是一种用来为结构化文档（如HTML文档或XML应用）添加样式（字体、间距和颜色等）的计算机语言，其文件扩展名为.css。在网页开发中，CSS的核心作用是同时控制多重网页的样式和布局，从而大大提升网页开发的工作效率。",
+      "question_type": "summary",
+      "question_id": "3205d961-44a5-42c7-a93f-def4df92fefa"
+    },
+    {
+      "question": "菜鸟教程网站提供的测验类型涵盖了哪些编程语言或技术？",
+      "answer": "菜鸟教程网站提供的测验类型涵盖了多种编程语言与相关技术，具体包括HTML、HTML5、XHTML、CSS、JavaScript、jQuery、XML、ASP、PHP、SQL以及Python。",
+      "question_type": "fact",
+      "question_id": "a594816c-830f-4389-acd5-42a3a03f5ab9"
+    },
+    {
+      "question": "HTML/CSS/JS 在线工具具备哪些功能？",
+      "answer": "HTML/CSS/JS 在线工具具备在线编辑HTML、CSS和JS代码的功能，并且能够实时查看代码修改后的运行效果。此外，该工具还支持将优质的代码进行保存和分享。",
+      "question_type": "fact",
+      "question_id": "cec6f759-c143-440d-a36a-6090f85a010a"
+    },
+    {
+      "question": "菜鸟教程网站主要提供了哪些类别的学习资源和功能模块？",
+      "answer": "菜鸟教程网站提供了丰富多样的学习资源和实用功能模块。在学习资源方面，网站涵盖了Python与数据科学、AI与智能开发、前端开发、后端开发、数据库、移动开发、DevOps与工程化、编程语言、计算机基础、XML与Web Service、.NET以及网站建设等多个技术类别，并提供了HTML、CSS、JavaScript、Ajax、jQuery、XML和Java等在线实例。在功能模块方面，网站设有菜鸟工具、菜鸟笔记、参考手册、用户笔记、测验与考试以及本地书签等核心板块。其中，参考手册包含HTML、Javascript、CSS、Zepto、Flat UI和PostgreSQL等专项手册；测验模块提供HTML、HTML5、XHTML、CSS、JavaScript、jQuery、XML、ASP、PHP、SQL和Python等多种技术的在线考试；工具模块则集成了HTML字符集与ASCII字符集查询、JS混淆加密、PNG与JPEG图片压缩、HTML拾色器、JSON格式化工具和随机数生成器等实用工具。此外，网站还持续更新MCP入门、n8n入门、Dify入门、Vibe Coding实战、Oh My Pi入门、Kilo Code入门和GitHub Copilot入门等前沿技术教程。",
+      "question_type": "summary",
+      "question_id": "ef995249-3794-4c94-9b44-6901c318e00d"
+    },
+    {
+      "question": "根据菜鸟教程网站的导航结构，该网站主要涵盖了哪些类别的技术学习资源？",
+      "answer": "根据菜鸟教程网站的导航结构，该网站主要涵盖了以下类别的技术学习资源：Python与数据科学、AI与智能开发、前端开发、后端开发、数据库、移动开发、DevOps与工程化、编程语言、计算机基础、XML与Web Service、.NET以及网站建设。此外，网站还提供了丰富的在线实例资源，包括HTML、CSS、JavaScript、Ajax、jQuery、XML和Java实例，以及字符集设置和各类开发工具，如JS混淆加密、图片压缩、HTML拾色器、JSON格式化工具和随机数生成器等，并包含了多种技术的测验与考试板块。",
+      "question_type": "summary",
+      "question_id": "01165390-a1bd-4904-9a14-5dc90fd4b64d"
+    },
+    {
+      "question": "该文本块提供的Python3教程来源于哪个网站？",
+      "answer": "该文本块提供的Python3教程来源于菜鸟教程网站，其对应的网址为https://www.runoob.com/python3/python3-tutorial.html。这是一个专注于提供各类编程语言学习资料的在线平台，为广大开发者提供了详尽的Python3学习指南与相关技术文档。",
+      "question_type": "fact",
+      "question_id": "211e6edb-7e4a-48a1-a7bb-673862e566f2"
+    },
+    {
+      "question": "HTML/CSS/JS 在线工具具备哪些功能？",
+      "answer": "HTML/CSS/JS 在线工具可以在线编辑 HTML、CSS、JS 代码，并实时查看修改后的运行效果，同时用户也可以将优质代码保存并分享给他人。",
+      "question_type": "fact",
+      "question_id": "daf6ef42-7804-452d-8127-0103a60d2d54"
+    },
+    {
+      "question": "Python 3.0 在设计时为什么没有考虑向下兼容？",
+      "answer": "Python 3.0 在设计时没有考虑向下兼容，主要是为了不带入过多的累赘。",
+      "question_type": "reasoning",
+      "question_id": "beb4b96a-95a8-46e5-bca5-106e22408b02"
+    },
+    {
+      "question": "根据文档内容，CSS的定义及其在网页开发中的核心作用是什么？",
+      "answer": "CSS（Cascading Style Sheets，层叠样式表）是一种用来为结构化文档（如HTML文档或XML应用）添加样式（字体、间距和颜色等）的计算机语言，其文件扩展名为.css。在网页开发中，CSS的核心作用是同时控制多重网页的样式和布局，通过使用CSS可以大大提升网页开发的工作效率。",
+      "question_type": "summary",
+      "question_id": "24d827fa-12d0-4165-a911-ff4de9cf1918"
+    },
+    {
+      "question": "HTML/CSS/JS 在线工具的主要功能是什么？",
+      "answer": "HTML/CSS/JS 在线工具的主要功能是允许用户在线编辑 HTML、CSS 和 JS 代码，并且能够实时查看代码运行的效果。同时，该工具还支持将优质的代码进行保存与分享，方便用户进行代码的展示与交流。",
+      "question_type": "fact",
+      "question_id": "4a259663-b777-4d9a-bada-15844b197f9e"
+    },
+    {
+      "question": "文本中列出的机器学习相关教程包含哪些具体框架或技术？",
+      "answer": "文本中列出的机器学习相关教程包含的具体框架或技术有PyTorch、TensorFlow、Sklearn、NLP、AI Agent以及Ollama。",
+      "question_type": "fact",
+      "question_id": "b034d8c2-8570-4df0-b62e-8dab472a9188"
+    },
+    {
+      "question": "Python 3.0 版本相对于早期版本有什么重大升级特点，并且官方对 Python 2 的更新支持在何时停止？",
+      "answer": "Python 3.0 版本常被称为 Python 3000 或简称 Py3k，相对于 Python 的早期版本，这是一个较大的升级，其最重大的特点是在设计时没有考虑向下兼容，以避免带入过多的累赘。此外，官方已经宣布于 2020 年 1 月 1 日正式停止对 Python 2 的更新支持。",
+      "question_type": "fact",
+      "question_id": "f673af4f-f86d-4b29-a8e3-46982f05efce"
+    },
+    {
+      "question": "在Web开发中，JavaScript与HTML、CSS各自承担的核心角色分别是什么？",
+      "answer": "在Web开发中，HTML、CSS与JavaScript各自承担着不可或缺的核心角色。HTML定义了网页的内容，构成了网页的基础结构与实质信息；CSS描述了网页的布局，负责网页的视觉呈现与样式设计；而JavaScript则控制了网页的行为，赋予了网页动态交互的能力。这三门语言共同协作，才使得现代网页既具备充实的内容与美观的排版，又拥有丰富的用户交互体验。",
+      "question_type": "summary",
+      "question_id": "e2975330-6b55-437b-a7ed-596a9c400e35"
+    },
+    {
+      "question": "CSS3教程中涵盖了哪些与转换和动画相关的特性？",
+      "answer": "CSS3教程中涵盖的与转换和动画相关的特性主要包括CSS3 2D转换、CSS3 3D转换、CSS3过渡以及CSS3动画。这些特性共同构成了CSS3在元素空间变换与动态交互效果方面的核心功能。",
+      "question_type": "fact",
+      "question_id": "53b0cee9-ddc5-4bd8-9ed2-9d887cce273a"
+    },
+    {
+      "question": "HTML/CSS/JS 在线工具的主要功能是什么？",
+      "answer": "HTML/CSS/JS 在线工具的主要功能是支持用户在线编辑 HTML、CSS 和 JS 代码，并能够实时查看代码的运行效果，同时该工具还允许用户将优质的代码保存下来并进行分享。",
+      "question_type": "fact",
+      "question_id": "1f362124-b288-483c-b938-9f2cd4d87324"
+    },
+    {
+      "question": "JavaScript教程目录中包含了哪些关于异步编程的主题？",
+      "answer": "JavaScript教程目录中包含了关于异步编程的三个核心主题，分别是JavaScript异步编程、JavaScript Promise以及JavaScript async/await，这些内容系统地涵盖了异步编程的基础概念与具体实现方式。",
+      "question_type": "fact",
+      "question_id": "baae44b5-93f8-4064-b925-2553cd0398a5"
+    },
+    {
+      "question": "为什么中文网页需要使用 <meta charset=\"utf-8\"> 声明编码？",
+      "answer": "中文网页需要使用 <meta charset=\"utf-8\"> 声明编码，主要是为了防止网页出现乱码。如果不进行该声明，浏览器可能无法正确解析中文字符。此外，部分浏览器（如360浏览器）会默认将GBK设置为默认编码，在这种情况下，则需要将编码声明设置为 <meta charset=\"gbk\"> 以确保正常显示。在编码的书写规范上，\"UTF-8\" 是标准写法，为了严格起见最好使用大写的标准格式。除在MySQL命令中必须使用无横杠的 \"utf8\" 外，在其他地方（例如PHP中的header设置等）一律应使用带横杠的大写 \"UTF-8\"，以免出现如IE浏览器无法识别等兼容性问题。",
+      "question_type": "reasoning",
+      "question_id": "c534a52d-7f27-4505-82a7-72c48cfd5f02"
+    },
+    {
+      "question": "在Web开发中，HTML、CSS和JavaScript各自扮演什么角色？它们之间是如何协同工作的？",
+      "answer": "在Web开发中，HTML、CSS和JavaScript各自扮演着不可或缺的角色，三者相互配合共同构建出完整的网页。HTML主要负责定义网页的具体内容，构成了网页的基础骨架与信息载体；CSS则用于描述网页的布局与样式，决定了内容呈现的视觉效果与排版方式；而JavaScript的核心作用是控制网页的行为，赋予网页动态交互的功能。它们协同工作的方式是：HTML搭建出页面的内容结构，CSS在此基础上对结构进行美化与布局设计，JavaScript则操控这些内容与样式，实现实时的动态响应与用户交互，三者紧密结合，共同实现了现代网页从静态展示到动态行为的完整体验。",
+      "question_type": "reasoning",
+      "question_id": "9bc13861-f778-44c2-9805-d58fae0e26fd"
+    },
+    {
+      "question": "HTML5中用于实现客户端数据存储的技术有哪些？",
+      "answer": "在HTML5中，用于实现客户端数据存储的技术主要包括Web存储、Web SQL以及Web IndexedDB。这些技术为网页应用提供了本地数据存储的能力，使得数据可以在客户端被有效地保存和管理，从而提升应用的离线使用体验和数据处理效率。",
+      "question_type": "fact",
+      "question_id": "22115998-e938-4ceb-accb-ad3413aaf340"
+    },
+    {
+      "question": "HTML5提供了哪些与Web存储和数据库相关的功能特性？",
+      "answer": "HTML5提供了多种与Web存储和数据库相关的功能特性，主要包括Web存储、Web SQL以及Web IndexedDB。Web存储用于在客户端进行数据存储；Web SQL是一种在浏览器端使用SQL进行数据库操作的功能；Web IndexedDB则提供了一种基于索引的客户端数据库存储方案。这些特性使得网页应用能够在本地高效地存储和管理大量数据。",
+      "question_type": "fact",
+      "question_id": "b43907b1-5b4e-48f6-be5a-88b27158ec34"
+    },
+    {
+      "question": "为什么中文网页需要使用 <meta charset=\"utf-8\"> 声明编码？",
+      "answer": "中文网页需要使用 <meta charset=\"utf-8\"> 声明编码，主要是为了防止网页出现乱码。如果不进行该声明，浏览器在解析中文内容时可能无法正确识别字符编码。此外，部分浏览器（如360浏览器）会将 GBK 设置为默认编码，在这种情况下，则需要根据实际需求将编码声明调整为 <meta charset=\"gbk\">，以确保网页内容能够正常显示。",
+      "question_type": "reasoning",
+      "question_id": "447cf1f1-f614-4334-9ab6-5c7b117ae545"
+    },
+    {
+      "question": "菜鸟教程网站提供了哪些编程语言的在线实例？",
+      "answer": "菜鸟教程网站提供了多种编程语言的在线实例，具体包括HTML、CSS、JavaScript、Ajax、jQuery、XML以及Java的在线实例，涵盖了前端开发、后端开发及数据交换等不同领域的编程语言。",
+      "question_type": "fact",
+      "question_id": "8df4228a-9835-4c62-8d66-f17974405d67"
+    },
+    {
+      "question": "HTML的全称是什么？",
+      "answer": "HTML的全称是超文本标记语言，其英语全称为HyperText Markup Language。这是一种用于创建网页的标准标记语言，通过它能够建立属于自己的WEB站点。HTML运行在浏览器上，由浏览器负责解析，并且它非常容易学习，能够帮助人们快速掌握并使用它来创建站点。",
+      "question_type": "fact",
+      "question_id": "02933a06-678d-471f-acf0-bc1dba474732"
+    },
+    {
+      "question": "根据文本内容，为什么HTML文档会同时存在.htm和.html两种后缀名？在实际开发中推荐使用哪一种，原因是什么？",
+      "answer": "HTML文档同时存在.htm和.html两种后缀名是因为历史遗留的8.3文件格式限制。在早期的DOS操作系统中，文件命名遵循8.3格式规则，扩展名只限于三位，因此只能使用htm作为后缀；而html则是为支持长文件名的系统格式命名的。两者在效果和打开方式上没有区别，扩展名也可以互相更换。在实际开发中推荐使用长后缀名html。原因在于命名应遵从一致性和含义清晰的原则，htm是受过去8.3字符限制的命名方式，而现在的命名环境已不再受此限制，为了保持与当前无限制长度命名规则的一致性，避免在合作开发时各守其是、人为提高开发难度，应当选择符合现代命名规范的html后缀。",
+      "question_type": "reasoning",
+      "question_id": "f4835131-64b9-4603-8647-4da13776adad"
+    },
+    {
+      "question": "根据文本及用户笔记的讨论，HTML文档的后缀名 .htm 和 .html 有何历史渊源与区别？在实际开发中推荐使用哪一个，其依据的命名原则是什么？",
+      "answer": "htm与html均代表静态网页文件扩展名，两者在打开和显示效果上没有区别，可以互相更换。它们的历史渊源在于早期DOS操作系统采用8.3文件格式，即文件名仅限8位、扩展名仅限3位，因此只能使用htm作为后缀；而html则是为支持长文件名的系统所设计的命名格式，htm的存在是为了兼容过去的DOS命名限制。在实际开发中推荐使用html，其依据的命名原则包括含义清晰、简洁和一致性。htm代表超文本标记，html代表超文本标记语言，两者均采用首字母缩写，含义清晰且简洁。然而，一致性原则更为重要，由于htm是历史遗留的8.3字符限制命名方式，现代命名并未遵守该限制，因此从保持命名规则一致性的角度出发，应选择无长度限制的html作为后缀名。",
+      "question_type": "reasoning",
+      "question_id": "41f8535a-5bb1-4497-b478-78050145404d"
+    },
+    {
+      "question": "分享笔记时需要填写哪些必填项？",
+      "answer": "分享笔记时需要填写的必填项包括昵称和邮箱。",
+      "question_type": "fact",
+      "question_id": "b39874c0-1957-402e-9fd7-ec2513b246f8"
+    },
+    {
+      "question": "菜鸟教程网站的整体内容架构涵盖了哪些主要的技术与学习领域？",
+      "answer": "菜鸟教程网站的整体内容架构涵盖了非常广泛的技术与学习领域，主要包括Python与数据科学、AI与智能开发、前端开发、后端开发、数据库、移动开发、DevOps与工程化、编程语言、计算机基础、XML与Web Service、.NET以及网站建设等核心板块。此外，网站还提供了丰富的在线实例，涵盖HTML、CSS、JavaScript、Ajax、jQuery、XML和Java等实战练习；配备了包括HTML字符集、ASCII字符集、JS混淆加密、图片压缩、拾色器、JSON格式化工具和随机数生成器等实用字符集与工具；并持续更新前沿技术教程，如MCP入门、n8n入门、Dify入门、Vibe Coding实战、Oh My Pi入门、Kilo Code入门和GitHub Copilot入门等。同时，网站还设有各类技术的测验与考试模块，以及详尽的参考手册，为学习者提供全面系统的学习资源。",
+      "question_type": "summary",
+      "question_id": "546cb831-ee68-4aaf-93a6-965010ea8224"
+    },
+    {
+      "question": "菜鸟教程网站提供的在线实例涵盖了哪些编程语言或技术？",
+      "answer": "菜鸟教程网站提供的在线实例涵盖了多种主流编程语言与前端技术，具体包括HTML、CSS、JavaScript、Ajax、jQuery、XML以及Java。",
+      "question_type": "fact",
+      "question_id": "c2e4304a-4a3f-4c13-be09-d731ccde2121"
+    },
+    {
+      "question": "根据文档内容，CSS的定义、作用及其在提升网页开发效率方面的核心价值是什么？",
+      "answer": "CSS（Cascading Style Sheets，层叠样式表）是一种用来为结构化文档（如HTML文档或XML应用）添加样式（包括字体、间距和颜色等）的计算机语言，其文件扩展名为.css。它的主要作用是控制多重网页的样式和布局，通过使用CSS，可以大大提升网页开发的工作效率。",
+      "question_type": "summary",
+      "question_id": "9745ab81-199d-4144-8bee-678bac484e0b"
+    },
+    {
+      "question": "分享笔记时必须填写的两项信息是什么？",
+      "answer": "分享笔记时必须填写的两项信息分别是昵称和邮箱。在进行笔记分享的操作过程中，这两项内容被明确标记为必填项，意味着用户必须准确提供自己的昵称与邮箱地址，才能够顺利完成笔记的分享流程。",
+      "question_type": "fact",
+      "question_id": "f1b0bed0-2fe3-493f-af35-d21eda3b33c8"
+    },
+    {
+      "question": "CSS文件扩展名是什么？",
+      "answer": "CSS（层叠样式表）文件的扩展名是 .css。作为一种用来为结构化文档（如 HTML 文档或 XML 应用）添加样式（包括字体、间距和颜色等）的计算机语言，CSS 通过该特定的扩展名进行文件标识与保存，从而帮助开发者大大提升网页开发的工作效率，并实现对多重网页样式和布局的同时控制。",
+      "question_type": "fact",
+      "question_id": "2c216a82-e91f-46e1-ac4a-2c8aa760c48f"
+    },
+    {
+      "question": "该文本介绍的教程主题是什么？",
+      "answer": "该文本介绍的教程主题是CSS（层叠样式表）。CSS是一种用于控制网页样式和布局的标记语言，通过它可以将网页的内容与表现形式分离，从而实现对网页元素的颜色、字体、间距、排版等视觉效果的精确控制。该教程旨在帮助学习者全面掌握CSS的基础知识和实际应用技巧。",
+      "question_type": "fact",
+      "question_id": "06576dcd-4cbb-4c98-ae0f-1601c0e1cc62"
+    },
+    {
+      "question": "CSS文件扩展名是什么？",
+      "answer": "CSS文件的扩展名是.css。CSS即层叠样式表，是一种专门用来为结构化文档（如HTML文档或XML应用）添加字体、间距和颜色等样式的计算机语言，通过使用CSS可以大大提升网页开发的工作效率，并且能够同时控制多重网页的样式和布局。",
+      "question_type": "fact",
+      "question_id": "2492f566-8650-4808-a463-1631f0b09c70"
+    },
+    {
+      "question": "菜鸟教程提供的HTML/CSS/JS在线工具具备哪些功能？",
+      "answer": "菜鸟教程提供的HTML/CSS/JS在线工具具备在线编辑HTML、CSS和JS代码的功能，并且能够实时查看代码修改后的运行效果。此外，用户还可以将优质的代码保存下来并进行分享。",
+      "question_type": "fact",
+      "question_id": "2369e2e9-1a37-43ed-a195-10486a9368af"
+    },
+    {
+      "question": "HTML的全称是什么？",
+      "answer": "HTML的全称是HyperText Markup Language，中文意为超文本标记语言。它是一种用于创建网页的标准标记语言，用户可以使用它来建立自己的WEB站点，HTML运行在浏览器上，由浏览器来解析。",
+      "question_type": "fact",
+      "question_id": "25c768a3-d8fe-412e-a14d-b75fd5d68809"
+    },
+    {
+      "question": "根据文档内容及用户笔记，HTML文档的.htm与.html后缀名在本质上没有区别，但为什么推荐使用.html？请结合历史背景和命名原则说明原因。",
+      "answer": "虽然.htm与.html后缀名在本质上没有区别，但推荐使用.html的原因主要源于历史背景与命名原则。从历史背景来看，.htm是早期DOS操作系统时代的产物，受限于8.3文件格式（文件名仅限8位，扩展名仅限3位），DOS只能支持长度为三位的后缀名，因此采用了htm。而.html则是为长文件名格式命名的，htm仅是为了兼容过去的DOS命名格式而存在。从命名原则来看，变量命名应遵从含义清晰、简洁、一致性原则。htm代表超文本标记，html代表超文本标记语言，两者均含义清晰且简洁。但在一致性原则方面，由于htm是历史遗留的8.3字符限制命名方式，而现在的命名并未遵守8.3规则，如果在当前环境下仍选择受限制的htm，就会与现有的无限制长度命名规则产生不一致。为了保持命名规则的一致性，避免在合作开发时各守其是、人为提高开发难度，应当选择无限制长度命名方式的.html。",
+      "question_type": "reasoning",
+      "question_id": "2f7de4f2-5902-4573-9f72-3e8705162abf"
+    },
+    {
+      "question": "该JavaScript教程的来源网址是什么？",
+      "answer": "该JavaScript教程的来源网址是https://www.runoob.com/js/js-tutorial.html，这是一个提供编程学习资源的在线平台，专门用于帮助开发者学习和掌握JavaScript编程语言的基础知识与实际应用技巧。",
+      "question_type": "fact",
+      "question_id": "85782e7f-f5b0-407b-b440-8ab325c4d96e"
+    },
+    {
+      "question": "JavaScript 是什么领域的编程语言？",
+      "answer": "JavaScript 是 Web 领域的编程语言，所有现代的 HTML 页面都可以使用它来进行编程开发。",
+      "question_type": "fact",
+      "question_id": "4d15f9fc-553e-443a-a714-b800df9704bc"
+    },
+    {
+      "question": "根据文档内容，CSS的定义、作用及其在当前网页开发中的版本支持情况是什么？",
+      "answer": "CSS（Cascading Style Sheets，层叠样式表）是一种用来为结构化文档（如 HTML 文档或 XML 应用）添加样式（字体、间距和颜色等）的计算机语言，其文件扩展名为 .css。它的主要作用是大大提升网页开发的工作效率，允许开发者同时控制多重网页的样式和布局。在当前的网页开发中，CSS3 现已被大部分现代浏览器支持，而下一版的 CSS4 仍在开发中。",
+      "question_type": "summary",
+      "question_id": "7c2268c5-cae8-42ef-a090-592a8264e824"
+    },
+    {
+      "question": "Python3 连接 MySQL 数据库可以使用哪两种驱动？",
+      "answer": "Python3 连接 MySQL 数据库可以使用 mysql-connector 驱动和 PyMySQL 驱动这两种方式来实现数据库的连接与操作。",
+      "question_type": "fact",
+      "question_id": "b7038f87-998c-4dc6-a62b-73e68b1f976b"
+    },
+    {
+      "question": "在Web开发中，JavaScript与HTML、CSS各自承担的核心职责是什么？",
+      "answer": "在Web开发中，HTML、CSS与JavaScript三者分工明确且相辅相成。HTML的核心职责是定义网页的具体内容，构建页面的基础结构与信息；CSS的核心职责是描述网页的布局与样式，负责页面的视觉呈现；而JavaScript的核心职责则是控制网页的行为，实现页面的动态交互与逻辑功能。",
+      "question_type": "summary",
+      "question_id": "7cf9e05a-b05b-4bf9-8fa1-fca79fab373d"
+    },
+    {
+      "question": "在web开发中，HTML、CSS和JavaScript分别负责什么功能？",
+      "answer": "在web开发中，HTML、CSS和JavaScript各自承担着不同的核心功能。HTML主要用于定义网页的内容，是网页信息的基础结构；CSS负责描述网页的布局，决定了网页的视觉呈现与样式；而JavaScript则控制了网页的行为，实现了网页的动态交互与功能逻辑。这三门语言共同构成了web开发的基础，协同工作以构建完整的网页体验。",
+      "question_type": "fact",
+      "question_id": "3c105fed-626d-4fc8-b3a9-4b08508cd906"
+    },
+    {
+      "question": "在Web开发中，JavaScript与HTML、CSS各自承担的角色是什么？",
+      "answer": "在Web开发中，JavaScript、HTML与CSS共同构成了网页的核心技术，三者各自承担着明确且不可或缺的角色。HTML负责定义网页的具体内容，是网页信息的骨架与基础；CSS用于描述网页的布局与样式，决定了网页的视觉呈现方式；而JavaScript则控制了网页的行为，使网页具备动态交互的能力。这三门语言紧密配合，HTML与CSS搭建起网页的内容与外观，JavaScript则在此基础上赋予网页逻辑与交互功能，共同实现完整的Web开发。",
+      "question_type": "summary",
+      "question_id": "d22afe86-0e03-4755-be06-c002d0ae7d81"
+    },
+    {
+      "question": "Python 3.0 版本在设计上相对于早期版本有什么重要考量，且官方对 Python 2 的更新支持在何时停止？",
+      "answer": "Python 3.0 版本在设计时相对于早期版本的一个重要考量是为了不带入过多的累赘，因此在设计之初没有考虑向下兼容。此外，官方已于2020年1月1日正式停止了对 Python 2 的更新支持。",
+      "question_type": "reasoning",
+      "question_id": "dcceb4b0-1707-47e7-a78b-50bce529d2db"
+    },
+    {
+      "question": "Python3 高级教程中包含哪些与数据库相关的学习内容？",
+      "answer": "Python3 高级教程中与数据库相关的学习内容主要包含三个部分，分别是使用 mysql-connector 驱动连接 MySQL 数据库、使用 PyMySQL 驱动连接 MySQL 数据库，以及 Python 与 MongoDB 数据库的交互操作。",
+      "question_type": "fact",
+      "question_id": "fac1c836-5255-481a-ab16-2a501ac02571"
+    },
+    {
+      "question": "JavaScript 是哪种领域的编程语言？",
+      "answer": "JavaScript 是 Web 领域的编程语言。所有现代的 HTML 页面都可以使用 JavaScript，它非常容易学习，相关的教程内容涵盖了从初级到高级的 JavaScript 知识。",
+      "question_type": "fact",
+      "question_id": "f7dd6557-71ed-4cf3-a79a-a146c60e6585"
+    },
+    {
+      "question": "根据该CSS教程的目录结构，从基础的CSS语法到CSS3的高级特性（如2D/3D转换、动画），整体的学习脉络是如何递进安排的？",
+      "answer": "该CSS教程的学习脉络呈现出由浅入深、从基础到高级的递进安排。首先从CSS简介、编辑器与基础语法入手，掌握Id和Class选择器及CSS的创建方式；接着深入学习网页核心样式控制，涵盖背景、文本、字体、链接、列表与表格等视觉属性；随后过渡到布局原理的学习，包括盒子模型、边框、轮廓、外边距、填充、尺寸、显示与可见性、定位、溢出处理、浮动及对齐方式；在掌握布局后，进一步探讨选择符的组合与嵌套、伪类、伪元素及属性选择器，并结合导航栏、下拉菜单、提示工具、图片廊、图像透明度与拼合技术等实际应用进行巩固；之后引入媒体类型、表单、计数器、网页布局及!important规则等综合知识。完成基础体系后，进阶至CSS3高级特性，依次探索边框圆角、背景渐变、文本效果与字体，再深入2D与3D转换、过渡与动画等动态交互技术，最后拓展至多列布局、用户界面、弹性盒子及多媒体查询等现代响应式设计领域，形成完整的技能进阶路径。",
+      "question_type": "reasoning",
+      "question_id": "391caa5f-e72f-4ad4-9a7d-cc7208c91519"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "task_id": "cad202ab-422d-41b8-8df3-7f9dbb4f2495",
+  "project_id": "bf686e13-c6c2-4d11-ac2d-0641932d4ddf",
+  "total_chunks": 27,
+  "processed_chunks": 27,
+  "skipped_chunks": 0,
+  "created_questions": 27,
+  "created_answers": 27,
+  "failed_answers": 0,
+  "files": {
+    "44b0afc0-2bce-4a1a-b1a0-0389cc4b2522": {
+      "filename": "Python3 教程 _ 菜鸟教程.md",
+      "qa_count": 5,
+      "chunks_processed": 5,
+      "chunks_skipped": 0
+    },
+    "fae405bf-f74e-44fd-8d05-a9320ca41295": {
+      "filename": "JavaScript 教程 _ 菜鸟教程.md",
+      "qa_count": 7,
+      "chunks_processed": 7,
+      "chunks_skipped": 0
+    },
+    "aa81f0ce-6629-4aa5-a25b-50921887c529": {
+      "filename": "CSS 教程 _ 菜鸟教程.md",
+      "qa_count": 7,
+      "chunks_processed": 7,
+      "chunks_skipped": 0
+    },
+    "c92dfe6c-632f-40f0-a656-973b05e84141": {
+      "filename": "HTML 教程 _ 菜鸟教程.md",
+      "qa_count": 5,
+      "chunks_processed": 5,
+      "chunks_skipped": 0
+    },
+    "602dd8b1-24df-4b25-a6c4-6218c3ec6042": {
+      "filename": "菜鸟教程.md",
+      "qa_count": 3,
+      "chunks_processed": 3,
+      "chunks_skipped": 0
+    }
+  }
+}

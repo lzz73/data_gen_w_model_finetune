@@ -6,6 +6,19 @@
         <el-icon class="logo-icon" :size="24"><Cpu /></el-icon>
         <span v-show="!isCollapsed" class="logo-text">远光微调平台</span>
       </div>
+
+      <!-- 当前项目指示器 -->
+      <div v-if="projectStore.hasProject && !isCollapsed" class="project-indicator" @click="$router.push('/')">
+        <el-icon :size="14" color="#67c23a"><CircleCheckFilled /></el-icon>
+        <span class="project-indicator-text">{{ projectStore.currentProject?.name }}</span>
+        <el-icon :size="12" color="#bfcbd9"><Switch /></el-icon>
+      </div>
+      <div v-if="projectStore.hasProject && isCollapsed" class="project-indicator-dot" @click="$router.push('/')">
+        <el-tooltip content="点击切换项目" placement="right">
+          <el-icon :size="14" color="#67c23a"><CircleCheckFilled /></el-icon>
+        </el-tooltip>
+      </div>
+
       <el-menu
         :default-active="activeMenu"
         :collapse="isCollapsed"
@@ -31,8 +44,10 @@
           <el-menu-item index="/data-governance/structured">结构化数据处理</el-menu-item>
           <el-menu-item index="/data-governance/unstructured">非结构化数据处理</el-menu-item>
           <el-menu-item index="/data-governance/qa-generate">问答对生成</el-menu-item>
+          <el-menu-item index="/data-governance/manual-generate">人工生成</el-menu-item>
           <el-menu-item index="/data-governance/validate">数据质量校验</el-menu-item>
           <el-menu-item index="/data-governance/dataset-split">数据集划分</el-menu-item>
+          <el-menu-item index="/data-governance/model-config">模型配置</el-menu-item>
         </el-sub-menu>
 
         <!-- 微调训练 -->
@@ -62,7 +77,7 @@
             <el-icon><Box /></el-icon>
             <span>模型仓库</span>
           </template>
-          <el-menu-item index="/model-repo/list">模型列表</el-menu-item>
+          <el-menu-item index="/model-repo/list">模型配置</el-menu-item>
           <el-menu-item index="/model-repo/export">模型导出</el-menu-item>
           <el-menu-item index="/model-repo/verify">在线验证</el-menu-item>
         </el-sub-menu>
@@ -104,6 +119,18 @@
               {{ item.title }}
             </el-breadcrumb-item>
           </el-breadcrumb>
+          <!-- 顶栏当前项目标签 -->
+          <el-tag
+            v-if="projectStore.hasProject && route.path !== '/'"
+            type="primary"
+            size="small"
+            effect="plain"
+            class="header-project-tag"
+            @click="$router.push('/')"
+          >
+            <el-icon :size="12"><FolderOpened /></el-icon>
+            {{ projectStore.currentProject?.name }}
+          </el-tag>
         </div>
         <div class="header-right">
           <el-dropdown>
@@ -132,8 +159,10 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
+import { useProjectStore } from '@/stores/project'
 
 const route = useRoute()
+const projectStore = useProjectStore()
 const isCollapsed = ref(false)
 
 const activeMenu = computed(() => route.path)
@@ -195,6 +224,37 @@ const toggleCollapse = () => {
     }
   }
 
+  .project-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    background: rgba(103, 194, 58, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+    transition: background 0.3s;
+
+    &:hover {
+      background: rgba(103, 194, 58, 0.2);
+    }
+
+    .project-indicator-text {
+      flex: 1;
+      font-size: 13px;
+      color: #e0e0e0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .project-indicator-dot {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    cursor: pointer;
+  }
+
   :deep(.el-menu) {
     border-right: none;
   }
@@ -229,6 +289,13 @@ const toggleCollapse = () => {
       &:hover {
         color: $primary-color;
       }
+    }
+
+    .header-project-tag {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
   }
 
