@@ -149,10 +149,10 @@
         <StatCard icon="CircleClose" label="失败" :value="stats.failed" color="#f56c6c" />
       </div>
 
-      <!-- 校验结果列表 -->
+      <!-- 问答对列表 -->
       <div v-if="questions.length > 0" class="content-card" style="margin-top: 16px;">
         <div class="card-title" style="display: flex; align-items: center; justify-content: space-between;">
-          <span>校验结果</span>
+          <span>{{ hasValidated ? '校验结果' : '问答对列表' }}</span>
           <el-input
             v-model="searchKeyword"
             placeholder="搜索问答内容..."
@@ -160,6 +160,11 @@
             style="width: 200px;"
             clearable
           />
+        </div>
+        <div v-if="!hasValidated" style="margin-bottom: 12px;">
+          <el-alert type="info" :closable="false">
+            <template #title>请点击右上角「执行校验」按钮进行质量校验</template>
+          </el-alert>
         </div>
         <div class="qa-validate-list" v-loading="loadingQa">
           <div
@@ -170,29 +175,34 @@
             <div class="qa-validate-header">
               <div style="display: flex; align-items: center; gap: 8px;">
                 <el-tag size="small" type="primary">Q{{ i + 1 }}</el-tag>
-                <el-tag
-                  size="small"
-                  :type="basicCheck(row) === '通过' ? 'success' : 'danger'"
-                >
-                  基础: {{ basicCheck(row) }}
-                </el-tag>
-                <el-tag
-                  v-if="row.quality_score != null"
-                  size="small"
-                  :type="row.quality_score < 0.5 ? 'warning' : 'success'"
-                >
-                  语义: {{ row.quality_score < 0.5 ? '疑似幻觉' : '通过' }}
-                </el-tag>
-                <el-tag v-else size="small" type="info">语义: 未校验</el-tag>
-                <el-tag
-                  size="small"
-                  :type="formatCheck(row) === '通过' ? 'success' : 'danger'"
-                >
-                  格式: {{ formatCheck(row) }}
+                <template v-if="hasValidated">
+                  <el-tag
+                    size="small"
+                    :type="basicCheck(row) === '通过' ? 'success' : 'danger'"
+                  >
+                    基础: {{ basicCheck(row) }}
+                  </el-tag>
+                  <el-tag
+                    v-if="row.quality_score != null"
+                    size="small"
+                    :type="row.quality_score < 0.5 ? 'warning' : 'success'"
+                  >
+                    语义: {{ row.quality_score < 0.5 ? '疑似幻觉' : '通过' }}
+                  </el-tag>
+                  <el-tag v-else size="small" type="info">语义: 未校验</el-tag>
+                  <el-tag
+                    size="small"
+                    :type="formatCheck(row) === '通过' ? 'success' : 'danger'"
+                  >
+                    格式: {{ formatCheck(row) }}
+                  </el-tag>
+                </template>
+                <el-tag v-else size="small" :type="row.answer_status === 'completed' ? 'success' : 'warning'">
+                  {{ row.answer_status === 'completed' ? '已回答' : '待处理' }}
                 </el-tag>
               </div>
               <el-button
-                v-if="row.answer_status === 'failed' || (row.quality_score != null && row.quality_score < 0.5)"
+                v-if="hasValidated && (row.answer_status === 'failed' || (row.quality_score != null && row.quality_score < 0.5))"
                 link type="primary" size="small"
                 :loading="regeneratingId === row.id"
                 @click="handleRegenerate(row)"
@@ -241,6 +251,7 @@ const embeddingModelName = ref('')
 // 校验相关
 const loadingQa = ref(false)
 const validating = ref(false)
+const hasValidated = ref(false)  // 是否已执行过校验
 const progress = ref(0)
 const questions = ref<Question[]>([])
 const regeneratingId = ref<string | null>(null)
@@ -305,6 +316,9 @@ const selectedBatchInfo = computed(() => {
 // 下拉选择批次
 const onBatchChange = (batchId: string) => {
   selectedBatchId.value = batchId
+  // 切换批次时，如果该批次已有校验结果则显示，否则重置
+  const batch = batches.value.find(b => b.batch_id === batchId)
+  hasValidated.value = batch?.task_status === 'completed' || batch?.task_status === 'failed'
 }
 
 // 删除当前选中批次
@@ -426,7 +440,9 @@ const startPolling = () => {
         if (t.status === 'completed' || t.status === 'failed') {
           stopPolling()
           validating.value = false
+          hasValidated.value = true
           if (t.status === 'completed') {
+            progress.value = 100
             ElMessage.success('质量校验完成')
           } else {
             ElMessage.error('质量校验失败')
