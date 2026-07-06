@@ -389,36 +389,28 @@ const saveToProject = async () => {
     // 批量新建
     if (newItems.length > 0) {
       const isDpo = templateType.value === 'dpo'
-      // 先过滤出有效条目（有 instruction 和 response）
-      const validNewItems = newItems.filter(item => item.instruction.trim() && item.response.trim())
-      const importItems = validNewItems.map(item => {
-        const obj: Record<string, string> = {
-          content: item.instruction.trim(),
-          answer: item.response.trim(),
-          source: 'manual',
-          question_type: isDpo ? 'dpo' : 'manual',
-        }
-        if (isDpo && item.rejected?.trim()) {
-          obj.rejected_answer = item.rejected.trim()
-        }
-        return obj
-      })
+      const importItems = newItems.map(item => ({
+        content: item.instruction,
+        answer: item.response,
+        source: 'manual',
+        question_type: isDpo ? 'dpo' : 'manual',
+        rejected_answer: isDpo ? item.rejected : undefined,
+      })).filter(item => item.content && item.answer)
 
-      if (importItems.length > 0) {
-        try {
-          const res = await questionApi.batchImport(projectStore.currentProjectId, importItems) as any
-          const ids = res?.ids || []
-          // 标记为已存，记录 dbId
-          validNewItems.forEach((item, i) => {
-            item._status = 'saved'
-            item._dbId = ids[i] || undefined
-          })
-          savedCount += importItems.length
-        } catch (e: any) {
-          errorCount += importItems.length
-          ElMessage.error(`批量导入失败：${e?.message || '未知错误'}`)
-        }
+      try {
+        const res = await questionApi.batchImport(projectStore.currentProjectId, importItems) as any
+        const ids = res?.ids || []
+        // 标记为已存，记录 dbId
+        newItems.forEach((item, i) => {
+          item._status = 'saved'
+          item._dbId = ids[i] || undefined
+        })
+        savedCount += importItems.length
+      } catch (e: any) {
+        errorCount += importItems.length
+        ElMessage.error(`批量导入失败：${e?.message || '未知错误'}`)
       }
+    }
 
     // 逐条更新
     for (const item of modifiedItems) {

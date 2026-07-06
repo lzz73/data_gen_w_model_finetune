@@ -95,7 +95,7 @@ async def batch_import_qa(
     """批量导入 QA 对"""
     import uuid as uuid_mod
     batch_id = uuid_mod.uuid4()
-    created = []
+    created_ids = []
     for item in request.items:
         is_dpo = item.question_type == "dpo" or bool(item.rejected_answer)
         question = Question(
@@ -112,20 +112,16 @@ async def batch_import_qa(
             } if is_dpo else None,
         )
         db.add(question)
-        created.append(question)
+        created_ids.append(question)
 
-    await db.flush()  # flush 让 DB 分配 ID，但不 commit
-    for q in created:
-        await db.refresh(q)
     await db.commit()
 
     return ApiResponse.ok(
         data={
-            "count": len(created),
-            "ids": [str(q.id) for q in created],
-            "batch_id": str(batch_id),
+            "count": len(created_ids),
+            "ids": [str(q.id) for q in created_ids],
         },
-        message=f"成功导入 {len(created)} 个 QA 对",
+        message=f"成功导入 {len(created_ids)} 个 QA 对",
     )
 
 
