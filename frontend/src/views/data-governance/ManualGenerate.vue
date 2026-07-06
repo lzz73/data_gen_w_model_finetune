@@ -1,27 +1,25 @@
 <template>
   <div class="page-container">
     <PageHeader title="人工生成">
-      <template #actions>
-        <el-radio-group v-model="templateType" size="small" style="margin-right: 12px;">
-          <el-radio-button value="instruct">指令-回复</el-radio-button>
-          <el-radio-button value="dpo">DPO 偏好</el-radio-button>
-        </el-radio-group>
-        <el-button type="primary" :loading="saving" :disabled="qaItems.length === 0" @click="saveToProject">
-          <el-icon><Check /></el-icon>保存到项目
+      <el-radio-group v-model="templateType" size="small" style="margin-right: 12px;">
+        <el-radio-button value="instruct">指令-回复</el-radio-button>
+        <el-radio-button value="dpo">DPO 偏好</el-radio-button>
+      </el-radio-group>
+      <el-button type="primary" :loading="saving" :disabled="qaItems.length === 0" @click="saveToProject">
+        <el-icon><Check /></el-icon>保存到项目
+      </el-button>
+      <el-dropdown @command="handleExport" style="margin-left: 8px;">
+        <el-button :disabled="qaItems.length === 0">
+          另存为 <el-icon class="el-icon--right"><ArrowDown /></el-icon>
         </el-button>
-        <el-dropdown @command="handleExport" style="margin-left: 8px;">
-          <el-button :disabled="qaItems.length === 0">
-            另存为 <el-icon class="el-icon--right"><ArrowDown /></el-icon>
-          </el-button>
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item command="jsonl">JSONL 格式</el-dropdown-item>
-              <el-dropdown-item command="json">JSON 格式</el-dropdown-item>
-              <el-dropdown-item command="excel">Excel 格式</el-dropdown-item>
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown>
-      </template>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item command="jsonl">JSONL 格式</el-dropdown-item>
+            <el-dropdown-item command="json">JSON 格式</el-dropdown-item>
+            <el-dropdown-item command="excel">Excel 格式</el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
     </PageHeader>
 
     <EmptyState
