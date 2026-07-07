@@ -116,9 +116,11 @@ watch(logs, autoScroll, { deep: true })
 
 const displayStatus = computed(() => {
   if (!currentTask.value) return ''
-  if (currentTask.value.status === 'completed') return 'completed'
-  if (currentTask.value.status === 'running' && (taskStatus.progress || 0) >= 100) return 'completed'
-  return currentTask.value.status
+  if (currentTask.value.status === 'completed' || currentTask.value.status === 'failed' || currentTask.value.status === 'cancelled') 
+    return currentTask.value.status
+  if ((taskStatus.progress || 0) >= 100 || (currentTask.value?.progress || 0) >= 100) 
+    return 'completed'
+  return currentTask.value?.status || ''
 })
 
 const statusLabel = (s: string) => ({

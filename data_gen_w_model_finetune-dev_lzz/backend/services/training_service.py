@@ -108,7 +108,7 @@ def _save_tasks():
     try:
         with _task_lock:
             data = {
-                tid: {k: v for k, v in t.items() if k != "logs" and k != "loss_history"}
+                tid: {k: v for k, v in t.items() if k != "logs"}
                 for tid, t in _tasks.items()
             }
         with open(TASKS_FILE, "w", encoding="utf-8") as f:
@@ -125,8 +125,8 @@ def _load_tasks():
         data = json.loads(TASKS_FILE.read_text(encoding="utf-8"))
         with _task_lock:
             for tid, t in data.items():
-                t["logs"] = []
-                t["loss_history"] = []
+                t.setdefault("logs", [])
+                t.setdefault("loss_history", [])
                 _tasks[tid] = t
         print(f"[TASK] 已加载 {len(data)} 个历史训练记录")
     except Exception as e:

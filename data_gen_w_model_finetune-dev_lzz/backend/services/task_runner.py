@@ -275,32 +275,49 @@ def run_training_subprocess(task_id: str, config: dict, stage: str):
             _append_log(task_id, raw, log_type)
 
         stop_flag.set()
-        log_watcher.join(timeout=3)
+        try:
+            process.stdout.close()
+        except Exception:
+            pass
         reader.join(timeout=3)
-        process.wait()
+        log_watcher.join(timeout=3)
+
+        # 等进程退出（最多 60 秒，训练本身已结束）
+        try:
+            process.wait(timeout=60)
+        except subprocess.TimeoutExpired:
+            process.kill()
+            process.wait()
 
         # 训练结束后绘制 loss 曲线
-        _plot_loss_curve(task_id, output_dir, config.get("do_eval", False))
+        try:
+            _plot_loss_curve(task_id, output_dir, config.get("do_eval", False))
+        except Exception as e:
+            print(f"[WARN] Loss 曲线异常: {e}", flush=True)
 
+        ret_code = process.returncode
         with _task_lock:
             if task_id in _tasks:
                 t = _tasks[task_id]
                 if t["status"] == "cancelled":
                     _append_log(task_id, "[WARN] 训练已被用户中断", "warn")
-                elif process.returncode == 0:
+                elif ret_code == 0:
                     t["status"] = "completed"
                     t["progress"] = 100
                     t["finished_at"] = datetime.now().isoformat()
                     t["eta"] = "00:00"
-                    _append_log(task_id, "=" * 50, "info")
-                    _append_log(task_id, "[INFO] 训练完成！", "info")
-                    _append_log(task_id, f"[INFO] 输出目录: {output_dir}", "info")
-                    _append_log(task_id, f"[INFO] Loss 曲线: {output_dir}/loss_curve.png", "info")
-                    _append_log(task_id, "=" * 50, "info")
-                    print(f"\n{'='*50}\n>>> 训练完成！输出目录: {output_dir}\n{'='*50}", flush=True)
                 else:
                     t["status"] = "failed"
-                    _append_log(task_id, f"[ERROR] 训练退出码: {process.returncode}", "error")
+                    _append_log(task_id, f"[ERROR] 训练退出码: {ret_code}", "error")
+
+        # 完成日志（放 lock 外，避免死锁）
+        if ret_code == 0:
+            _append_log(task_id, "=" * 50, "info")
+            _append_log(task_id, "[INFO] 训练完成！", "info")
+            _append_log(task_id, f"[INFO] 输出目录: {output_dir}", "info")
+            _append_log(task_id, f"[INFO] Loss 曲线: {output_dir}/loss_curve.png", "info")
+            _append_log(task_id, "=" * 50, "info")
+            print(f"\n{'='*50}\n>>> 训练完成！输出目录: {output_dir}\n{'='*50}", flush=True)
 
         from .training_service import _save_tasks
         try:

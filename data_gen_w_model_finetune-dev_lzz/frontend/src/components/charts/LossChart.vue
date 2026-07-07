@@ -83,9 +83,9 @@ onMounted(() => {
 })
 
 // 数据变化时自动更新图表
-watch(() => props.data?.length, () => {
+watch(() => props.data, () => {
   if (chart) initChart()
-})
+}, { deep: true })
 </script>
 
 <style scoped>
