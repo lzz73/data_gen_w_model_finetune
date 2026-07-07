@@ -14,7 +14,7 @@ class Settings(BaseSettings):
     APP_NAME: str = "远光微调平台"
     DEBUG: bool = True
     HOST: str = "0.0.0.0"
-    PORT: int = 8000
+    PORT: int = 18121
     ALLOWED_ORIGINS: str = Field(
         default="*",
         description="Comma-separated list of allowed CORS origins"

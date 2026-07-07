@@ -45,7 +45,7 @@ class SplitRequest(BaseModel):
     chunk_size: int = Field(500, ge=50, le=5000)
     overlap: int = Field(50, ge=0, le=500)
     separator: Optional[str] = None
-    # PDF 处理策略 (仅对 PDF 文件有效)
+    # PDF 处理策略 (仅对 PDF 文件有效, method='ocr' 时自动使用 PaddleOCR)
     pdf_strategy: Optional[str] = Field("default", description="PDF 处理策略：default, vision")
     # VLM 模型配置 (用于 vision 策略)
     vlm_model_name: Optional[str] = Field(None, description="VLM 模型名称")
@@ -178,6 +178,17 @@ async def process_file_by_type(
         from app.services.file_processor import process_file
         from app.services.file_processor.pdf.default import convert_pdf_to_markdown
 
+        # OCR 分割策略：使用 PaddleOCR 识别 PDF 页面内容
+        if split_method == 'ocr':
+            from app.services.file_processor.pdf import process_pdf
+            result = await process_pdf(
+                'ocr', str(file_path_obj), str(output_path)
+            )
+            if result['success']:
+                return Path(output_path).read_text(encoding='utf-8')
+            else:
+                raise Exception(f"PaddleOCR PDF 识别失败：{result.get('error', 'Unknown error')}")
+
         # 如果有预处理配置中的页眉页脚阈值，直接调用带阈值的转换
         header_threshold = (preprocessing_config or {}).get('header_threshold', 0)
         footer_threshold = (preprocessing_config or {}).get('footer_threshold', 100)
@@ -199,7 +210,7 @@ async def process_file_by_type(
             output.write_text(content, encoding='utf-8')
             return content
 
-        # 无坐标过滤，走标准流程
+        # 走标准流程
         result = await process_file(
             str(file_path_obj),
             str(output_path),
@@ -335,7 +346,7 @@ async def process_split_async(
             log_success(
                 "[DEBUG] 开始转换文件为 Markdown",
                 file_type=file.file_type,
-                pdf_strategy=request.pdf_strategy or 'default'
+                method=request.method,
             )
 
             text = await process_file_by_type(
@@ -373,6 +384,19 @@ async def process_split_async(
                 if request.method == "custom" and request.separator:
                     kwargs["separator"] = request.separator
 
+                # OCR 识别后用 markdown_structure 分割（每页一个 ## 标题，自动按页切片）
+                effective_method = request.method
+                if request.method == "ocr":
+                    effective_method = "markdown_structure"
+                    kwargs = {}
+                    if preprocessing_config:
+                        if preprocessing_config.get("custom_header_patterns"):
+                            kwargs["custom_header_patterns"] = preprocessing_config["custom_header_patterns"]
+                        if preprocessing_config.get("custom_footer_patterns"):
+                            kwargs["custom_footer_patterns"] = preprocessing_config["custom_footer_patterns"]
+                    if llm_config:
+                        kwargs["llm_config"] = llm_config
+
                 # Excel 文件使用特殊处理：已经是结构化文本（每行一条数据）
                 # 但仅当用户明确选择 excel_structured 方法时才使用
                 if file.file_type in ['xlsx', 'xls'] and file.file_path and request.method == 'excel_structured':
@@ -386,7 +410,7 @@ async def process_split_async(
                     )
                 else:
                     # markdown_structure 纯按标题结构切分，不接受 chunk_size/overlap
-                    if request.method == "markdown_structure":
+                    if effective_method == "markdown_structure":
                         kwargs = {}
                         # 传递自定义页眉页脚关键词
                         if preprocessing_config:
@@ -395,13 +419,13 @@ async def process_split_async(
                             if preprocessing_config.get("custom_footer_patterns"):
                                 kwargs["custom_footer_patterns"] = preprocessing_config["custom_footer_patterns"]
                     # semantic_embedding 纯语义驱动，不需要 chunk_size/overlap
-                    if request.method == "semantic_embedding":
+                    if effective_method == "semantic_embedding":
                         kwargs = {}
                     # 传递 LLM 配置给分割器（用于摘要生成）
                     if llm_config:
                         kwargs["llm_config"] = llm_config
                     # 语义嵌入分割需要 embedding 配置
-                    if request.method == "semantic_embedding" and embedding_config:
+                    if effective_method == "semantic_embedding" and embedding_config:
                         kwargs["embedding_provider_type"] = embedding_config.get("provider", "openai")
                         kwargs["embedding_api_key"] = embedding_config.get("api_key", "")
                         kwargs["embedding_base_url"] = embedding_config.get("base_url", "")
@@ -416,7 +440,7 @@ async def process_split_async(
                     )
 
                     try:
-                        splitter = get_splitter(request.method, **kwargs)
+                        splitter = get_splitter(effective_method, **kwargs)
                         log_success(
                             "[DEBUG] 分割器创建成功",
                             splitter_type=type(splitter).__name__

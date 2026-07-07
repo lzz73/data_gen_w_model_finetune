@@ -25,3 +25,4 @@ markdownify>=0.13.0
 html2text>=2024.2.26
 markitdown>=0.1.0
 chardet>=5.2.0
+easyocr>=1.7.0

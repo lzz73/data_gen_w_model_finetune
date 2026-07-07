@@ -104,6 +104,27 @@ def convert_pdf_to_markdown(
     return _convert_with_pdfplumber(file_path)
 
 
+def is_scanned_pdf(file_path: str, min_chars_per_page: int = 10) -> bool:
+    """快速判断 PDF 是否为扫描件：每页平均文本量极低。
+
+    使用 PyMuPDF (fitz) 直接读取文本层，无需完整转换。
+    如果每页平均字符数低于阈值，则判定为扫描件。
+
+    Args:
+        file_path: PDF 文件路径
+        min_chars_per_page: 每页最小字符数阈值，默认 10
+    """
+    try:
+        import fitz
+        doc = fitz.open(file_path)
+        total_chars = sum(len(page.get_text().strip()) for page in doc)
+        page_count = len(doc)
+        doc.close()
+        return page_count > 0 and (total_chars / page_count) < min_chars_per_page
+    except Exception:
+        return False
+
+
 def _convert_with_pdfplumber(
     file_path: str,
     header_threshold: float = 0.0,

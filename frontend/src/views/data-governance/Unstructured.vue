@@ -135,6 +135,7 @@
                 <el-option label="递归字符分割" value="recursive" />
                 <el-option label="语义嵌入分割" value="semantic_embedding" />
                 <el-option label="Markdown结构分割" value="markdown_structure" />
+                <el-option label="OCR识别分割" value="ocr" />
               </el-select>
             </el-form-item>
             <el-form-item v-if="splitConfig.method === 'recursive'" label="切片大小">
@@ -163,6 +164,16 @@
                 语义嵌入分割需要先配置 Embedding 模型
               </template>
               请前往「模型配置」页面添加 embedding 类型模型并设为默认，否则将降级为规则分割
+            </el-alert>
+            <el-alert
+              v-if="splitConfig.method === 'ocr'"
+              type="info"
+              :closable="false"
+              style="margin-bottom: 12px;"
+            >
+              <template #title>
+                OCR识别分割：使用 PaddleOCR 识别 PDF 页面内容，适用于扫描件或图片型 PDF
+              </template>
             </el-alert>
             <el-form-item>
               <el-button

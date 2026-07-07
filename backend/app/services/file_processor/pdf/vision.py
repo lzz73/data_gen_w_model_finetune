@@ -74,6 +74,9 @@ async def pdf_to_images(pdf_path: str, output_dir: str, dpi: int = 144) -> List[
 
     使用 pdf2image 或 pymupdf
     """
+    # 确保输出目录存在
+    Path(output_dir).mkdir(parents=True, exist_ok=True)
+
     try:
         from pdf2image import convert_from_path
 

@@ -77,8 +77,8 @@ cd ../backend
 source venv/bin/activate
 export HOST="0.0.0.0"
 export DATABASE_URL="sqlite+aiosqlite:///./ygdataset.db"
-echo -e "${GREEN}  启动后端 (端口 8000)...${NC}"
-python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000 &
+echo -e "${GREEN}  启动后端 (端口 18121)...${NC}"
+python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 18121 &
 BACKEND_PID=$!
 
 sleep 2
@@ -92,8 +92,8 @@ echo ""
 echo "========================================="
 echo -e "  ${GREEN}启动完成!${NC}"
 echo "========================================="
-echo -e "  后端：${GREEN}http://localhost:8000${NC}"
-echo -e "  API 文档：${GREEN}http://localhost:8000/docs${NC}"
+echo -e "  后端：${GREEN}http://localhost:18121${NC}"
+echo -e "  API 文档：${GREEN}http://localhost:18121/docs${NC}"
 echo -e "  前端：${GREEN}http://localhost:5173${NC}"
 echo ""
 echo -e "  ${YELLOW}按 Ctrl+C 停止所有服务${NC}"
