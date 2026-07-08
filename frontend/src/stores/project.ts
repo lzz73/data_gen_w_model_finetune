@@ -4,7 +4,7 @@ import { projectApi } from '@/api'
 import type { Project, ProjectStats } from '@/types'
 
 export const useProjectStore = defineStore('project', () => {
-  const currentProjectId = ref<string | null>(null)
+  const currentProjectId = ref<string | null>(localStorage.getItem('currentProjectId'))
   const currentProject = ref<Project | null>(null)
   const currentStats = ref<ProjectStats | null>(null)
   const projects = ref<Project[]>([])
@@ -14,6 +14,7 @@ export const useProjectStore = defineStore('project', () => {
 
   const setCurrentProject = async (id: string) => {
     currentProjectId.value = id
+    localStorage.setItem('currentProjectId', id)
     try {
       const [project, stats] = await Promise.all([
         projectApi.get(id),
@@ -47,6 +48,7 @@ export const useProjectStore = defineStore('project', () => {
 
   const clearCurrentProject = () => {
     currentProjectId.value = null
+    localStorage.removeItem('currentProjectId')
     currentProject.value = null
     currentStats.value = null
   }

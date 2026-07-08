@@ -1,0 +1,28 @@
+# 分布式训练配置文件
+# 该配置定义了使用FSDP（Fully Sharded Data Parallel）进行分布式训练的各项参数设置
+
+compute_environment: LOCAL_MACHINE
+debug: false
+distributed_type: FSDP  # 指定分布式训练类型为FSDP（全分片数据并行）
+downcast_bf16: 'no'
+fsdp_config:  # FSDP具体配置参数
+  fsdp_auto_wrap_policy: TRANSFORMER_BASED_WRAP  # 自动包装策略，基于Transformer结构进行模块包装
+  fsdp_backward_prefetch: BACKWARD_PRE  # 反向传播预取策略，在反向传播前预取参数
+  fsdp_forward_prefetch: false  # 前向传播是否预取参数
+  fsdp_cpu_ram_efficient_loading: true  # 是否启用CPU内存高效的模型加载
+  fsdp_offload_params: false  # 是否将参数卸载到CPU内存
+  fsdp_sharding_strategy: FULL_SHARD  # 分片策略，完全分片所有参数、梯度和优化器状态
+  fsdp_state_dict_type: FULL_STATE_DICT  # 状态字典类型，保存完整的模型状态
+  fsdp_sync_module_states: true  # 是否同步各进程间的模块初始状态
+  fsdp_use_orig_params: true  # 是否使用原始参数格式而非扁平化参数
+machine_rank: 0  # 当前机器在集群中的排名
+main_training_function: main  # 主训练函数名称
+mixed_precision: bf16  # 混合精度训练使用的数据类型，可选bf16或fp16
+num_machines: 1  # 参与训练的节点总数
+num_processes: 2  # 所有节点上的GPU总数
+rdzv_backend: static  # rendezvous后端，用于进程间通信协调
+same_network: true  # 所有机器是否在同一网络中
+tpu_env: []  # TPU环境变量列表
+tpu_use_cluster: false  # 是否使用TPU集群
+tpu_use_sudo: false  # TPU训练时是否使用sudo权限
+use_cpu: false  # 是否仅使用CPU进行训练

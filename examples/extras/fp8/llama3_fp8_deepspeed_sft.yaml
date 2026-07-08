@@ -1,0 +1,48 @@
+# FP8 training example with DeepSpeed ZeRO-3
+# This config demonstrates FP8 mixed precision training using HuggingFace Accelerate
+# with DeepSpeed providing memory optimization (not FP8 handling)
+
+### Model configuration
+model_name_or_path: meta-llama/Meta-Llama-3-8B-Instruct  # 指定预训练模型路径，使用Llama 3 8B指令微调版
+trust_remote_code: true  # 是否信任远程代码，允许执行模型库中的自定义代码
+
+### Method configuration
+stage: sft  # 训练阶段，sft表示监督微调(Supervised Fine-Tuning)
+do_train: true  # 是否执行训练，设置为true开启训练
+finetuning_type: full  # 微调类型，full表示全量参数微调
+
+### Dataset configuration
+dataset: identity  # 训练数据集名称，使用identity数据集
+template: llama3  # 数据模板类型，指定为llama3格式
+cutoff_len: 1024  # 输入序列最大长度，超过部分会被截断
+max_samples: 1000  # 最大样本数量，限制训练数据量
+overwrite_cache: true  # 是否覆盖缓存，true表示重新生成预处理缓存
+preprocessing_num_workers: 16  # 预处理并行工作进程数，加速数据预处理
+
+### Output configuration
+output_dir: saves/llama3-8b/fp8-deepspeed/sft  # 模型输出目录，保存训练结果
+logging_steps: 10  # 日志记录频率，每10步输出一次训练日志
+save_steps: 500  # 模型保存频率，每500步保存一次检查点
+plot_loss: true  # 是否绘制损失曲线图
+overwrite_output_dir: true  # 是否覆盖输出目录，true会删除现有输出目录
+
+### Training configuration
+per_device_train_batch_size: 1  # 每个设备的训练批次大小，设为1减少显存占用
+gradient_accumulation_steps: 8  # 梯度累积步数，模拟更大的批次大小
+learning_rate: 5.0e-5  # 学习率，FP8训练通常使用稍大的学习率
+num_train_epochs: 3.0  # 训练轮数，浮点数表示可以设置小数轮
+lr_scheduler_type: cosine  # 学习率调度器类型，cosine表示余弦退火调度器
+warmup_ratio: 0.1  # 预热比例，前10%的训练步骤用于学习率预热
+bf16: true  # 启用BF16混合精度训练，提高训练速度和减少内存使用
+
+### FP8 configuration
+fp8: true  # 启用FP8混合精度训练，进一步节省内存
+fp8_backend: torchao  # 使用TorchAO后端进行FP8运算
+fp8_enable_fsdp_float8_all_gather: false  # 不与DeepSpeed一起使用FSDP的float8 all-gather功能
+
+### DeepSpeed configuration
+deepspeed: examples/deepspeed/ds_z3_fp8_config.json  # DeepSpeed配置文件路径，使用ZeRO-3 + FP8配置
+
+### Logging configuration
+report_to: wandb  # 报告工具，使用wandb进行实验跟踪
+run_name: llama3_fp8_deepspeed_sft  # wandb运行名称，用于区分不同实验

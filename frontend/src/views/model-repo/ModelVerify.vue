@@ -3,49 +3,92 @@
     <PageHeader title="在线验证" />
 
     <el-row :gutter="16">
-      <!-- 模型选择 -->
       <el-col :span="6">
         <div class="content-card">
           <div class="card-title">选择模型</div>
-          <el-select v-model="selectedModel" placeholder="选择模型" style="width: 100%">
-            <el-option label="电力SFT-Qwen2-7B-v3" value="power_sft_v3" />
-            <el-option label="合同DPO-DeepSeek-7B-v2" value="contract_dpo_v2" />
-            <el-option label="规章CPT-LLaMA3-8B-v1" value="rules_cpt_v1" />
+          <el-select v-model="selectedModel" filterable placeholder="选择本地或已合并模型" style="width:100%" @change="onModelChange">
+            <el-option-group label="── 本地模型 ──">
+              <el-option v-for="m in localModels" :key="m.path" :label="`📁 ${m.name}`" :value="m.path">
+                <span>{{ m.name }}</span>
+              </el-option>
+            </el-option-group>
+            <el-option-group label="── 已合并模型 ──">
+              <el-option v-for="m in mergedModels" :key="m.path" :label="`🔗 ${m.name}`" :value="m.path">
+                <span>{{ m.name }}</span>
+              </el-option>
+            </el-option-group>
           </el-select>
-          <el-descriptions :column="1" size="small" border style="margin-top: 12px">
-            <el-descriptions-item label="训练模式">SFT</el-descriptions-item>
-            <el-descriptions-item label="基座模型">Qwen2-7B</el-descriptions-item>
-            <el-descriptions-item label="评估得分">82分</el-descriptions-item>
-          </el-descriptions>
+
+          <div v-if="selectedModel" style="margin-top:16px">
+            <!-- 模型加载状态 -->
+            <div style="margin-bottom:12px">
+              <el-tag v-if="modelLoaded" type="success" size="small">已加载</el-tag>
+              <el-tag v-else type="info" size="small">未加载</el-tag>
+              <span v-if="modelLoaded && vramInfo" style="font-size:12px;color:#909399;margin-left:8px">显存: {{ vramInfo }}</span>
+            </div>
+            <el-form size="small">
+              <el-form-item>
+                <el-button v-if="!modelLoaded" type="success" size="small" :loading="loadingModel" @click="loadModel" style="width:100%">
+                  加载模型
+                </el-button>
+                <el-button v-else type="warning" size="small" :loading="loadingModel" @click="unloadModel" style="width:100%">
+                  卸载模型
+                </el-button>
+              </el-form-item>
+            </el-form>
+
+            <div class="param-title" style="margin-top:8px">生成参数</div>
+            <el-form label-width="80px" size="small">
+              <el-form-item label="Temperature">
+                <el-slider v-model="temperature" :min="0" :max="200" :step="5" show-input style="width:calc(100% - 60px)" />
+              </el-form-item>
+              <el-form-item label="Top-p">
+                <el-slider v-model="topP" :min="0" :max="100" :step="5" show-input style="width:calc(100% - 60px)" />
+              </el-form-item>
+              <el-form-item label="Max Tokens">
+                <el-input-number v-model="maxTokens" :min="64" :max="4096" :step="64" style="width:100%" />
+              </el-form-item>
+              <el-form-item>
+                <el-button size="small" type="danger" @click="clearChat" plain :disabled="!modelLoaded">清空对话</el-button>
+              </el-form-item>
+            </el-form>
+          </div>
+
+          <el-empty v-if="localModels.length === 0 && mergedModels.length === 0" description="无可用模型" />
         </div>
       </el-col>
 
-      <!-- 对话区域 -->
       <el-col :span="18">
         <div class="content-card chat-card">
-          <div class="chat-messages" ref="messagesRef">
-            <div v-for="(msg, i) in messages" :key="i" class="chat-msg" :class="msg.role">
-              <div class="msg-avatar">
-                <el-avatar :size="32" :icon="msg.role === 'user' ? 'User' : 'Monitor'" />
+          <div v-if="!selectedModel" style="text-align:center;padding:60px;color:#909399">
+            请从左侧选择一个模型开始验证
+          </div>
+          <div v-else-if="!modelLoaded" style="text-align:center;padding:60px;color:#909399">
+            <p>模型已选择，请点击"加载模型"按钮</p>
+          </div>
+          <template v-else-if="modelLoaded">
+            <div class="chat-messages" ref="messagesRef">
+              <div v-for="(msg, i) in messages" :key="i" class="chat-msg" :class="msg.role">
+                <div class="msg-avatar">
+                  <el-avatar :size="32" :icon="msg.role === 'user' ? 'User' : 'Monitor'" />
+                </div>
+                <div class="msg-content">
+                  <div class="msg-text">{{ msg.content }}</div>
+                </div>
               </div>
-              <div class="msg-content">
-                <div class="msg-text">{{ msg.content }}</div>
+              <div v-if="loading" class="chat-msg assistant">
+                <div class="msg-avatar"><el-avatar :size="32" icon="Monitor" /></div>
+                <div class="msg-content"><div class="msg-text typing">推理中...</div></div>
               </div>
             </div>
-            <div v-if="loading" class="chat-msg assistant">
-              <div class="msg-avatar"><el-avatar :size="32" icon="Monitor" /></div>
-              <div class="msg-content">
-                <div class="msg-text typing">思考中<span class="dot">...</span></div>
-              </div>
+            <div class="chat-input">
+              <el-input v-model="inputText" placeholder="输入问题进行验证..." @keyup.enter="sendMessage" :disabled="loading">
+                <template #append>
+                  <el-button :icon="Promotion" @click="sendMessage" :loading="loading" />
+                </template>
+              </el-input>
             </div>
-          </div>
-          <div class="chat-input">
-            <el-input v-model="inputText" placeholder="输入问题进行验证..." @keyup.enter="sendMessage" :disabled="loading">
-              <template #append>
-                <el-button :icon="Promotion" @click="sendMessage" :loading="loading" />
-              </template>
-            </el-input>
-          </div>
+          </template>
         </div>
       </el-col>
     </el-row>
@@ -53,112 +96,155 @@
 </template>
 
 <script setup lang="ts">
-import { ref, nextTick } from 'vue'
-import { Promotion } from '@element-plus/icons-vue'
+import { ref, onMounted, nextTick } from 'vue'
+import { ElMessage } from 'element-plus'
 import PageHeader from '@/components/common/PageHeader.vue'
+import { trainingApi } from '@/api/training'
 
-const selectedModel = ref('power_sft_v3')
+interface ModelItem { name: string; path: string; size: string }
+const localModels = ref<ModelItem[]>([])
+const mergedModels = ref<ModelItem[]>([])
+
+const selectedModel = ref('')
 const inputText = ref('')
 const loading = ref(false)
+const loadingModel = ref(false)
+const modelLoaded = ref(false)
+const vramInfo = ref('')
+const temperature = ref(0.7 * 100)
+const topP = ref(0.9 * 100)
+const maxTokens = ref(512)
 const messagesRef = ref<HTMLDivElement>()
+const messages = ref<{ role: 'user' | 'assistant'; content: string }[]>([])
 
-const messages = ref([
-  { role: 'assistant' as const, content: '您好！我是电力SFT-Qwen2-7B-v3模型，请输入问题进行验证。' },
-])
+const onModelChange = async () => {
+  // 切换模型时，查后端看新模型是否已加载
+  vramInfo.value = ''
+  messages.value = []
+  if (selectedModel.value) {
+    sessionStorage.setItem('verify_selected_model', selectedModel.value)
+    try {
+      const status = await trainingApi.getVerifyStatus(selectedModel.value)
+      if (status?.loaded) {
+        modelLoaded.value = true
+        vramInfo.value = status.vram ? `${status.vram}G` : ''
+      } else {
+        modelLoaded.value = false
+      }
+    } catch {
+      modelLoaded.value = false
+    }
+  } else {
+    modelLoaded.value = false
+    sessionStorage.removeItem('verify_selected_model')
+  }
+}
 
-const mockReplies: Record<string, string> = {
-  '电力采购招标的方式有哪些？': '电力采购招标分为公开招标和邀请招标两种方式。公开招标是以招标公告方式邀请不特定组织投标；邀请招标是以投标邀请书方式邀请特定组织投标。',
-  '合同审批流程是什么？': '合同审批流程包括：部门负责人初审 → 财务部复核 → 分管领导审批。金额超过100万的需提交总经理办公会审议。',
+const loadModel = async () => {
+  if (!selectedModel.value) return
+  loadingModel.value = true
+  try {
+    const data = await trainingApi.verifyLoad({ model_path: selectedModel.value, question: '' })
+    modelLoaded.value = true
+    vramInfo.value = data?.vram_used ? `${data.vram_used}G / ${data.vram_total}G` : ''
+    ElMessage.success('模型已加载')
+    messages.value = [{ role: 'assistant', content: `模型已加载：${selectedModel.value}\n请输入问题进行验证。` }]
+  } catch (e: any) { ElMessage.error(e.message) }
+  finally { loadingModel.value = false }
+}
+
+const unloadModel = async () => {
+  loadingModel.value = true
+  try {
+    await trainingApi.verifyUnload({ model_path: selectedModel.value, question: '' })
+    modelLoaded.value = false
+    vramInfo.value = ''
+    sessionStorage.removeItem('verify_selected_model')
+    ElMessage.success('已卸载')
+  } catch (e: any) { ElMessage.error(e.message) }
+  finally { loadingModel.value = false }
+}
+
+const clearChat = () => {
+  messages.value = []
+}
+
+const buildHistory = () => {
+  const history: { user: string; assistant: string }[] = []
+  for (let i = 0; i < messages.value.length - 1; i += 2) {
+    if (messages.value[i]?.role === 'user' && messages.value[i + 1]?.role === 'assistant') {
+      history.push({ user: messages.value[i].content, assistant: messages.value[i + 1].content })
+    }
+  }
+  return history
 }
 
 const sendMessage = async () => {
   if (!inputText.value.trim() || loading.value) return
-  messages.value.push({ role: 'user', content: inputText.value })
   const question = inputText.value
   inputText.value = ''
+  messages.value.push({ role: 'user', content: question })
   loading.value = true
-
   await nextTick()
-  messagesRef.value!.scrollTop = messagesRef.value!.scrollHeight
+  if (messagesRef.value) messagesRef.value.scrollTop = messagesRef.value.scrollHeight
 
-  setTimeout(() => {
-    const reply = mockReplies[question] || `针对您的问题"${question}"，基于训练数据，该模型可以给出相关领域的专业回答。此为模拟验证环境，实际回答将由模型实时生成。`
-    messages.value.push({ role: 'assistant', content: reply })
+  try {
+    const data = await trainingApi.verifyChat({
+      model_path: selectedModel.value,
+      question: question,
+      history: buildHistory(),
+      temperature: temperature.value / 100,
+      top_p: topP.value / 100,
+      max_tokens: maxTokens.value,
+    })
+    messages.value.push({ role: 'assistant', content: data.reply })
+  } catch (e: any) {
+    messages.value.push({ role: 'assistant', content: `连接失败: ${e.message}` })
+  } finally {
     loading.value = false
-    nextTick(() => { messagesRef.value!.scrollTop = messagesRef.value!.scrollHeight })
-  }, 1500)
+    nextTick(() => { if (messagesRef.value) messagesRef.value.scrollTop = messagesRef.value.scrollHeight })
+  }
 }
+
+onMounted(async () => {
+  try {
+    const data = await trainingApi.listVerifyModels()
+    if (data) {
+      localModels.value = data.local || []
+      mergedModels.value = data.merged || []
+    }
+  } catch (e) { console.error(e) }
+
+  // 恢复上次选中的模型，并查后端确认是否仍在加载
+  const saved = sessionStorage.getItem('verify_selected_model')
+  if (saved) {
+    selectedModel.value = saved
+    try {
+      const status = await trainingApi.getVerifyStatus(saved)
+      if (status?.loaded) {
+        modelLoaded.value = true
+        vramInfo.value = status.vram ? `${status.vram}G` : ''
+        messages.value = [{ role: 'assistant', content: `模型仍在加载中：${saved}\n请输入问题进行验证。` }]
+      }
+    } catch { /* 未加载则忽略 */ }
+  }
+})
+
+// 切菜单不卸载模型 — 模型在后端内存中，与前端组件生命周期无关
+// 用户需要手动点"卸载"按钮才会释放显存
 </script>
 
 <style lang="scss" scoped>
-.chat-card {
-  display: flex;
-  flex-direction: column;
-  height: calc(100vh - 200px);
-  padding: 0;
-
-  .card-title {
-    padding: 16px 20px;
-    margin-bottom: 0;
-  }
-
-  .chat-messages {
-    flex: 1;
-    overflow-y: auto;
-    padding: 16px 20px;
-
-    .chat-msg {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 16px;
-
-      &.user {
-        flex-direction: row-reverse;
-
-        .msg-content {
-          .msg-text {
-            background: #409eff;
-            color: #fff;
-          }
-        }
-      }
-
-      &.assistant {
-        .msg-content {
-          .msg-text {
-            background: #f4f4f5;
-            color: #303133;
-          }
-        }
-      }
-
-      .msg-content {
-        max-width: 70%;
-
-        .msg-text {
-          padding: 10px 14px;
-          border-radius: 12px;
-          font-size: 14px;
-          line-height: 1.6;
-
-          &.typing {
-            .dot {
-              animation: blink 1s infinite;
-            }
-          }
-        }
-      }
+.param-title { font-weight: 600; font-size: 14px; color: #303133; margin-bottom: 8px; }
+.chat-card { display: flex; flex-direction: column; height: calc(100vh - 200px); padding: 0;
+  .card-title { padding: 16px 20px; margin-bottom: 0; }
+  .chat-messages { flex: 1; overflow-y: auto; padding: 16px 20px;
+    .chat-msg { display: flex; gap: 12px; margin-bottom: 16px;
+      &.user { flex-direction: row-reverse; .msg-text { background: #409eff; color: #fff; } }
+      &.assistant .msg-text { background: #f4f4f5; color: #303133; }
+      .msg-content { max-width: 70%; .msg-text { padding: 10px 14px; border-radius: 12px; font-size: 14px; line-height: 1.6; } }
     }
   }
-
-  .chat-input {
-    padding: 16px 20px;
-    border-top: 1px solid #ebeef5;
-  }
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 0.2; }
-  50% { opacity: 1; }
+  .chat-input { padding: 16px 20px; border-top: 1px solid #ebeef5; }
 }
 </style>

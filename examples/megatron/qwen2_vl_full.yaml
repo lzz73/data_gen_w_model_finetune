@@ -1,0 +1,68 @@
+# 模型路径或名称，这里使用的是Qwen2-VL-7B-Instruct视觉语言模型
+model_name_or_path: Qwen/Qwen2-VL-7B-Instruct
+
+# 图像最大像素数，限制单张图像的最大像素数量为262144(512x512)
+image_max_pixels: 262144
+
+# 视频最大像素数，限制单个视频的最大像素数量为16384
+video_max_pixels: 16384
+
+# 是否执行训练，设为true表示开启训练模式
+do_train: true
+
+# 训练阶段，sft表示监督微调(Supervised Fine-Tuning)
+stage: sft
+
+# 微调类型，full表示对整个模型进行全参数微调，注释说明目前只支持full类型
+finetuning_type: full # only support full for now
+
+# 使用的数据集，llava_1k_en表示英文版的LLaVA 1000样本数据集
+dataset: llava_1k_en
+
+# 预处理工作进程数，使用8个并行进程加速数据预处理
+preprocessing_num_workers: 8
+
+# 截断长度，最大序列长度为4096个token
+cutoff_len: 4096
+
+# 模板类型，指定使用qwen2_vl模板来处理输入输出格式
+template: qwen2_vl
+
+# 输出目录，保存检查点和模型文件的路径
+output_dir: saves/mca/qwen2_vl_full
+
+# 每个设备的训练批次大小，每个GPU上放1个样本
+per_device_train_batch_size: 1
+
+# 梯度累积步数，累积2步后再更新参数，相当于有效批次增大2倍
+gradient_accumulation_steps: 2
+
+# 训练轮数，整个数据集训练2遍
+num_train_epochs: 2
+
+# 学习率，设置为2e-5 (0.00002)
+learning_rate: 2e-5
+
+# 日志记录频率，每1个step记录一次日志
+logging_steps: 1
+
+# 模型保存频率，每100个step保存一次检查点
+save_steps: 100
+
+# 学习率调度器类型，cosine表示余弦退火调度器
+lr_scheduler_type: cosine
+
+# 使用bfloat16混合精度训练，节省显存并可能提高训练速度
+bf16: true
+
+# mcore加速配置 - Megatron核心优化设置
+# 张量模型并行大小，将模型权重切分到4个GPU上
+tensor_model_parallel_size: 4
+
+# 序列并行开关，启用序列并行化以减少通信开销
+sequence_parallel: true
+
+# 流水线模型并行大小，将模型按层分割到2个流水线阶段
+pipeline_model_parallel_size: 2
+
+# 偏

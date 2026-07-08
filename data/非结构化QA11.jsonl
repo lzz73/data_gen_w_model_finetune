@@ -1,0 +1,24 @@
+{"instruction": "JavaScript教程目录中涵盖了哪些与异步编程相关的主题？", "input": "", "output": "JavaScript教程目录中涵盖的与异步编程相关的主题主要包括JavaScript异步编程、JavaScript Promise以及JavaScript async/await这三个部分。"}
+{"instruction": "菜鸟教程网站提供的测验类型涵盖了哪些编程语言或技术？", "input": "", "output": "菜鸟教程网站提供的测验类型涵盖了多种编程语言与相关技术，具体包括HTML、HTML5、XHTML、CSS、JavaScript、jQuery、XML、ASP、PHP、SQL以及Python。"}
+{"instruction": "菜鸟教程的来源网址是什么？", "input": "", "output": "菜鸟教程的来源网址是https://www.runoob.com/，这是该教程所属的官方网络地址，用户可以通过访问这个网址来获取菜鸟教程提供的各类编程学习资源与相关技术文档。"}
+{"instruction": "提供的在线实例中包含了哪些编程语言或技术的实例？", "input": "", "output": "提供的在线实例中包含了多种编程语言与技术的实例，具体涵盖HTML、CSS、JavaScript、Ajax、jQuery、XML以及Java。"}
+{"instruction": "该文本的主题是什么？", "input": "", "output": "该文本的主题是CSS（层叠样式表）教程，主要面向想要学习CSS的读者，提供有关CSS的基础知识、语法规则以及相关应用技巧的系统性学习指导与教学内容。"}
+{"instruction": "CSS教程中包含哪些与选择器相关的主题？", "input": "", "output": "CSS教程中包含的与选择器相关的主题主要有CSS Id和Class选择器、CSS属性选择器、CSS伪类以及CSS伪元素。此外，在CSS组合选择符的部分也涉及了选择器的组合使用方法，而CSS分组和嵌套的内容同样涵盖了选择器在分组与嵌套场景下的具体应用。"}
+{"instruction": "JavaScript类部分包含了哪些核心主题？", "input": "", "output": "JavaScript类部分包含的核心主题主要有JavaScript类、JavaScript类继承以及JavaScript静态方法。"}
+{"instruction": "在Python脚本中使用 ./script.py 方式调用时，第一行代码 #!/usr/bin/python3 的作用是什么？", "input": "", "output": "在Python脚本中使用 ./script.py 方式调用时，第一行代码 #!/usr/bin/python3 的作用是指定解释器的路径。它告诉操作系统在执行该脚本时，调用 /usr/bin 目录下的 python3 解释器来运行文件中的代码。这种写法相当于写死了 python3 的具体路径，仅在被直接以脚本方式调用时生效；如果使用 python script.py 命令调用，该行则会被忽略，等同于注释。此外，为了防止操作系统用户没有将 python3 安装在默认的 /usr/bin 路径里，更推荐使用 #!/usr/bin/env python3 的写法，这种写法会让系统首先到环境设置中查找 python3 的安装路径，再调用对应路径下的解释器程序完成操作。"}
+{"instruction": "HTML5中用于实现客户端数据存储的技术有哪些？", "input": "", "output": "在HTML5中，用于实现客户端数据存储的技术主要包括Web存储、Web SQL以及Web IndexedDB。"}
+{"instruction": "该JavaScript教程的来源网址是什么？", "input": "", "output": "该JavaScript教程的来源网址是https://www.runoob.com/js/js-tutorial.html，这是一个提供编程学习资源的在线平台，专门用于帮助开发者学习和掌握JavaScript编程语言的基础知识与核心概念。"}
+{"instruction": "HTML/CSS/JS 在线工具除了可以在线编辑代码并实时查看效果外，还支持什么操作？", "input": "", "output": "HTML/CSS/JS 在线工具除了支持在线编辑HTML、CSS、JS代码并实时查看运行效果之外，还支持将优质代码进行保存与分享的操作。"}
+{"instruction": "为什么中文网页需要使用 <meta charset=\"utf-8\"> 声明编码？", "input": "", "output": "中文网页需要使用 <meta charset=\"utf-8\"> 声明编码，主要是为了防止网页出现乱码。如果不进行该声明，浏览器可能无法正确解析中文字符。此外，有些浏览器（如 360 浏览器）会默认将 GBK 设置为编码格式，在这种情况下，则需要将编码声明调整为 <meta charset=\"gbk\"> 以确保网页正常显示。"}
+{"instruction": "Python 3.0 在设计时为什么没有考虑向下兼容？", "input": "", "output": "Python 3.0 在设计时没有考虑向下兼容，主要是为了不带入过多的累赘。作为相对于早期版本的一次较大升级，Python 3.0 希望摆脱历史版本的包袱与限制，从而实现更优的设计与更彻底的改进，因此选择放弃了向下兼容性。"}
+{"instruction": "HTML/CSS/JS 在线工具的主要功能是什么？", "input": "", "output": "HTML/CSS/JS 在线工具的主要功能是支持用户在线编辑HTML、CSS和JS代码，并且能够实时查看代码运行的效果，同时该工具还提供了将优质代码进行保存与分享的功能。"}
+{"instruction": "Python3连接MySQL数据库可以使用哪两种驱动？", "input": "", "output": "Python3连接MySQL数据库可以使用mysql-connector和PyMySQL这两种驱动。mysql-connector是官方提供的数据库连接驱动，能够支持Python程序与MySQL数据库进行交互操作；PyMySQL则是另一种常用的MySQL数据库连接驱动，同样可以实现Python3环境下的MySQL数据库连接与数据访问功能。"}
+{"instruction": "CSS3教程中涵盖了哪些与转换和动画相关的主题？", "input": "", "output": "CSS3教程中涵盖的与转换和动画相关的主题主要包括CSS3 2D转换、CSS3 3D转换、CSS3过渡以及CSS3动画，这些内容系统地展示了如何在网页中实现各类元素的空间变换与动态效果。"}
+{"instruction": "HTML教程涵盖的学习主题有哪些？", "input": "", "output": "HTML教程涵盖的学习主题非常丰富，主要包括HTML简介、编辑器、基础语法、元素、属性、标题、段落、文本格式化、链接、头部信息、CSS样式、图像、表格、列表、区块、布局、表单、框架、颜色及颜色名与颜色值、脚本、字符实体、URL、速查列表、标签简写及全称、总结、测验，以及XHTML简介。"}
+{"instruction": "CSS的全称是什么？", "input": "", "output": "CSS的全称是Cascading Style Sheets，中文通常翻译为层叠样式表。它是一种专门用来为结构化文档（例如HTML文档或XML应用）添加样式（包括字体、间距和颜色等）的计算机语言，其文件扩展名为.css。"}
+{"instruction": "该文本提供的Python3教程来源于哪个网站？", "input": "", "output": "该文本提供的Python3教程来源于菜鸟教程网站，其对应的网址为https://www.runoob.com/python3/python3-tutorial.html，这是一个专门提供各类编程语言学习资料和基础教程的在线平台。"}
+{"instruction": "Python3 教程中包含哪些基本数据类型？", "input": "", "output": "Python3教程中包含的基本数据类型主要有数字、字符串、列表、元组、字典和集合。这些数据类型构成了Python3编程的基础，其中数字用于处理数值，字符串用于处理文本数据，列表和元组用于存储有序的数据集合，字典用于存储具有映射关系的键值对，而集合则用于存储无序且不重复的元素。掌握这些基本数据类型是进行Python3编程的重要前提。"}
+{"instruction": "JavaScript 是什么领域的编程语言？", "input": "", "output": "JavaScript 是 Web 领域的编程语言，所有现代的 HTML 页面都可以使用它，同时它也是一门非常容易学习的编程语言。"}
+{"instruction": "分享笔记时必须填写的两项信息是什么？", "input": "", "output": "分享笔记时必须填写的两项信息分别是昵称和邮箱。在进行笔记分享的操作过程中，这两项内容被明确标注为必填项，这意味着用户如果想要成功完成笔记的分享，就必须如实提供自己的昵称以及有效的邮箱地址，否则将无法正常进行分享操作。"}
+{"instruction": "菜鸟教程的CSS参考手册中包含了哪些具体的参考资料分类？", "input": "", "output": "菜鸟教程的CSS参考手册中包含了五个具体的参考资料分类，分别是CSS属性、CSS选择器参考手册、CSS声音参考手册、CSS单位以及CSS颜色参考手册。这些分类涵盖了更完整的CSS属性、选择器的语法和浏览器支持等资料，为学习和使用CSS提供了全面的内容支持。"}
+{"instruction": "分享笔记时必须填写的两项信息是什么？", "input": "", "output": "分享笔记时必须填写的两项信息分别是昵称和邮箱。在进行笔记分享的操作过程中，系统明确要求用户必须提供这两项内容，其中昵称用于标识分享者的身份，邮箱则用于记录联系地址，这两者都是不可或缺的必填项，只有完整填写后才能顺利完成笔记的分享操作。"}

@@ -3,72 +3,66 @@
     <PageHeader title="模型导出" />
 
     <el-row :gutter="16">
-      <el-col :span="14">
+      <el-col :span="16">
         <div class="content-card">
-          <div class="card-title">导出配置</div>
-          <el-form :model="exportConfig" label-width="120px">
-            <el-form-item label="选择模型">
-              <el-select v-model="exportConfig.model" placeholder="请选择已注册模型">
-                <el-option label="电力SFT-Qwen2-7B-v3" value="power_sft_v3" />
-                <el-option label="合同DPO-DeepSeek-7B-v2" value="contract_dpo_v2" />
-                <el-option label="规章CPT-LLaMA3-8B-v1" value="rules_cpt_v1" />
-              </el-select>
-            </el-form-item>
-            <el-form-item label="导出方式">
-              <el-radio-group v-model="exportConfig.method">
-                <el-radio value="merge">LoRA合并到基座模型</el-radio>
-                <el-radio value="adapter">仅导出LoRA Adapter</el-radio>
-              </el-radio-group>
-            </el-form-item>
-            <el-form-item v-if="exportConfig.method === 'merge'" label="量化方式">
-              <el-select v-model="exportConfig.quantization">
-                <el-option label="不量化（FP16）" value="fp16" />
-                <el-option label="4-bit量化（GPTQ）" value="gptq-4bit" />
-                <el-option label="8-bit量化（GPTQ）" value="gptq-8bit" />
-              </el-select>
-            </el-form-item>
-            <el-form-item label="导出路径">
-              <el-input v-model="exportConfig.outputPath" placeholder="/data/models/export/" />
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" @click="startExport">
-                <el-icon><Download /></el-icon>开始导出
-              </el-button>
-            </el-form-item>
-          </el-form>
+          <div class="card-title">LoRA 模型列表（未合并）</div>
+          <el-table :data="loraModels" stripe v-loading="loading" highlight-current-row @current-change="selectTask">
+            <el-table-column type="index" width="50" />
+            <el-table-column prop="name" label="任务名称" min-width="180" />
+            <el-table-column label="基座模型" show-overflow-tooltip>
+              <template #default="{ row }">{{ row.config?.base_model || row.model }}</template>
+            </el-table-column>
+            <el-table-column label="LoRA Rank" width="90">
+              <template #default="{ row }">{{ row.config?.lora_rank || '--' }}</template>
+            </el-table-column>
+            <el-table-column label="最新 Checkpoint" width="140">
+              <template #default="{ row }">{{ row.latest_ckpt || '--' }}</template>
+            </el-table-column>
+            <el-table-column label="状态" width="100">
+              <template #default="{ row }">
+                <el-tag v-if="row.is_merged" type="success" size="small">已导出</el-tag>
+                <el-tag v-else type="warning" size="small">待导出</el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column label="合并路径" min-width="180" show-overflow-tooltip>
+              <template #default="{ row }">
+                <span v-if="row.merged_path">{{ row.merged_path }}</span>
+                <span v-else style="color:#909399">--</span>
+              </template>
+            </el-table-column>
+          </el-table>
         </div>
       </el-col>
 
-      <el-col :span="10">
-        <div v-if="exporting" class="content-card">
-          <div class="card-title">导出进度</div>
-          <el-progress :percentage="exportProgress" :status="exportProgress === 100 ? 'success' : ''" />
-          <div class="export-info">
-            <p v-if="exportProgress < 100">正在合并LoRA权重到基座模型...</p>
-            <p v-else>导出完成！文件已保存至 {{ exportConfig.outputPath }}</p>
-          </div>
-        </div>
-
-        <div class="content-card">
-          <div class="card-title">多阶段合并</div>
-          <el-alert type="info" :closable="false" show-icon>
-            <template #title>对于多阶段训练的模型（如CPT合并后再做SFT），提供一键合并功能</template>
-          </el-alert>
-          <el-form label-width="100px" size="small" style="margin-top: 12px">
-            <el-form-item label="第一阶段">
-              <el-select v-model="exportConfig.stage1" placeholder="CPT模型" size="small">
-                <el-option label="规章CPT-LLaMA3-8B-v1" value="rules_cpt_v1" />
-              </el-select>
+      <el-col :span="8">
+        <div class="content-card" v-if="selected">
+          <div class="card-title">导出配置</div>
+          <el-form label-width="120px" size="small">
+            <el-form-item label="导出路径">
+              <el-input v-model="exportPath" :placeholder="defaultExportPath" :disabled="exporting || selected?.is_merged" />
             </el-form-item>
-            <el-form-item label="第二阶段">
-              <el-select v-model="exportConfig.stage2" placeholder="SFT模型" size="small">
-                <el-option label="电力SFT-Qwen2-7B-v3" value="power_sft_v3" />
-              </el-select>
+            <el-form-item label="分片大小 (GB)">
+              <el-input-number v-model="exportSize" :min="1" :max="50" :disabled="exporting || selected?.is_merged" />
             </el-form-item>
-            <el-form-item>
-              <el-button size="small" type="warning">一键合并</el-button>
+            <el-form-item v-if="!exporting && !exportDone">
+              <el-button type="primary" :disabled="selected?.is_merged" @click="doExport">
+                <el-icon><Download /></el-icon>合并导出
+              </el-button>
             </el-form-item>
           </el-form>
+
+          <!-- 进度条 / 结果 -->
+          <div v-if="exporting || exportDone" style="margin-top:12px">
+            <el-progress
+              v-if="!exportDone"
+              :percentage="exportProgress"
+              :stroke-width="16"
+            />
+            <p style="margin-top:8px;color:#909399;font-size:13px">{{ exportMsg }}</p>
+            <el-alert v-if="exportDone" type="success" :closable="false" title="导出完成!" style="margin-top:8px">
+              模型已保存至 {{ exportResultDir }}
+            </el-alert>
+          </div>
         </div>
       </el-col>
     </el-row>
@@ -76,35 +70,87 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ElMessage } from 'element-plus'
 import PageHeader from '@/components/common/PageHeader.vue'
+import { trainingApi } from '@/api/training'
 
+const loading = ref(false)
+const loraModels = ref<any[]>([])
+const selected = ref<any>(null)
 const exporting = ref(false)
+const exportDone = ref(false)
+const exportMsg = ref('')
 const exportProgress = ref(0)
+const exportResultDir = ref('')
+const exportSize = ref(5)
+const exportPath = ref('')
 
-const exportConfig = reactive({
-  model: 'power_sft_v3',
-  method: 'merge',
-  quantization: 'fp16',
-  outputPath: '/data/models/export/',
-  stage1: '',
-  stage2: '',
-})
+const defaultExportPath = computed(() =>
+  selected.value ? `output/merged/${selected.value.task_id}` : ''
+)
 
-const startExport = () => {
-  exporting.value = true
+let pollTimer: any = null
+
+const selectTask = (row: any) => {
+  selected.value = row
+  exportPath.value = ''
+  exportMsg.value = ''
+  exportDone.value = false
   exportProgress.value = 0
-  const timer = setInterval(() => {
-    exportProgress.value += 5
-    if (exportProgress.value >= 100) clearInterval(timer)
-  }, 300)
+  if (pollTimer) { clearInterval(pollTimer); pollTimer = null }
 }
-</script>
 
-<style lang="scss" scoped>
-.export-info {
-  margin-top: 12px;
-  font-size: 13px;
-  color: #606266;
+const doExport = async () => {
+  if (!selected.value) { ElMessage.warning('请先选择一个 LoRA 模型'); return }
+  if (selected.value.is_merged) { ElMessage.warning('该任务已导出，不能重复导出'); return }
+  exporting.value = true; exportDone.value = false; exportProgress.value = 10
+  try {
+    const data = await trainingApi.exportModel({
+      task_id: selected.value.task_id,
+      export_dir: exportPath.value || defaultExportPath.value,
+      export_size: exportSize.value,
+    })
+    if (data?.job_id) {
+      exportResultDir.value = data.export_dir
+      // 轮询进度
+      pollTimer = setInterval(async () => {
+        try {
+          const job = await trainingApi.getExportStatus(data.job_id)
+          if (job) {
+            exportProgress.value = job.progress
+            exportMsg.value = job.msg
+            if (job.status === 'done') {
+              exportProgress.value = 100
+              exportDone.value = true
+              exporting.value = false
+              clearInterval(pollTimer!)
+              loadLoraModels()
+            } else if (job.status === 'error') {
+              exportMsg.value = '导出失败: ' + job.msg
+              exporting.value = false
+              clearInterval(pollTimer!)
+            }
+          }
+        } catch {}
+      }, 1000)
+    } else {
+      exporting.value = false
+      exportMsg.value = '启动失败'
+    }
+  } catch (e: any) {
+    exporting.value = false; exportMsg.value = e.message
+  }
 }
-</style>
+
+const loadLoraModels = async () => {
+  loading.value = true
+  try {
+    loraModels.value = await trainingApi.listLoraModels()
+  } catch (e) { console.error(e) }
+  finally { loading.value = false }
+}
+
+onMounted(loadLoraModels)
+onUnmounted(() => { if (pollTimer) clearInterval(pollTimer) })
+</script>

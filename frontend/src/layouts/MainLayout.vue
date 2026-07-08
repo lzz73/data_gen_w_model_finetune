@@ -61,16 +61,6 @@
           <el-menu-item index="/training/monitor">训练监控</el-menu-item>
         </el-sub-menu>
 
-        <!-- 评估工作台 -->
-        <el-sub-menu index="evaluation">
-          <template #title>
-            <el-icon><DataLine /></el-icon>
-            <span>评估工作台</span>
-          </template>
-          <el-menu-item index="/evaluation/task">评估任务</el-menu-item>
-          <el-menu-item index="/evaluation/report">评估报告</el-menu-item>
-        </el-sub-menu>
-
         <!-- 模型仓库 -->
         <el-sub-menu index="model-repo">
           <template #title>
@@ -80,6 +70,16 @@
           <el-menu-item index="/model-repo/list">模型配置</el-menu-item>
           <el-menu-item index="/model-repo/export">模型导出</el-menu-item>
           <el-menu-item index="/model-repo/verify">在线验证</el-menu-item>
+        </el-sub-menu>
+
+        <!-- 评估工作台 -->
+        <el-sub-menu index="evaluation">
+          <template #title>
+            <el-icon><DataLine /></el-icon>
+            <span>评估工作台</span>
+          </template>
+          <el-menu-item index="/evaluation/task">评估任务</el-menu-item>
+          <el-menu-item index="/evaluation/report">评估报告</el-menu-item>
         </el-sub-menu>
 
         <!-- 实验面板 -->
@@ -157,7 +157,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useProjectStore } from '@/stores/project'
 
@@ -181,6 +181,22 @@ const breadcrumbs = computed(() => {
 const toggleCollapse = () => {
   isCollapsed.value = !isCollapsed.value
 }
+
+// 启动时恢复上次选中的项目
+onMounted(async () => {
+  const savedId = localStorage.getItem('currentProjectId')
+  if (savedId && !projectStore.currentProject) {
+    try {
+      await projectStore.setCurrentProject(savedId)
+    } catch {
+      projectStore.clearCurrentProject()
+    }
+  }
+  // 同时加载项目列表
+  if (projectStore.projects.length === 0) {
+    projectStore.fetchProjects()
+  }
+})
 </script>
 
 <style lang="scss" scoped>

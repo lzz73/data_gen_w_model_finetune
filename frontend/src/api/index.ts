@@ -24,7 +24,7 @@ request.interceptors.response.use(
     }
 
     const data = response.data
-    // Handle ApiResponse format
+    // Handle ApiResponse format: { success: true, data: ... }
     if (data.success !== undefined) {
       if (data.success) {
         // Check if this is a paginated response
@@ -40,6 +40,14 @@ request.interceptors.response.use(
         return data.data
       } else {
         return Promise.reject(new Error(data.message || data.error || '请求失败'))
+      }
+    }
+    // Handle legacy training/evaluation format: { code: 0, data: ... }
+    if (data.code !== undefined) {
+      if (data.code === 0) {
+        return data.data
+      } else {
+        return Promise.reject(new Error(data.message || data.error || `请求失败 (code: ${data.code})`))
       }
     }
     return data

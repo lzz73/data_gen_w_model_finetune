@@ -5,6 +5,7 @@ API v1 Router
 from fastapi import APIRouter
 
 from app.api.v1 import files, projects, chunks, questions, datasets, eval, models, crawler, database
+from app.api.v1 import training, evaluation, system
 
 api_router = APIRouter()
 
@@ -20,3 +21,8 @@ api_router.include_router(eval.router, prefix="/projects/{project_id}/eval", tag
 api_router.include_router(models.router, prefix="/models", tags=["models"])
 api_router.include_router(crawler.router, prefix="/crawler", tags=["crawler"])
 api_router.include_router(database.router, prefix="/database", tags=["database"])
+
+# 训练、评估、系统管理（从微调训练模块合并）
+api_router.include_router(training.router, prefix="/training", tags=["training"])
+api_router.include_router(evaluation.router, prefix="/evaluation", tags=["evaluation"])
+api_router.include_router(system.router, prefix="/system", tags=["system"])

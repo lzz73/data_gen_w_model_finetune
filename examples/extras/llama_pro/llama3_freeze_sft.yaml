@@ -1,0 +1,45 @@
+### model
+model_name_or_path: models/llama3-8b-pro  # 指定预训练模型路径，使用Llama Pro版本
+trust_remote_code: true  # 是否信任远程代码，允许执行模型库中的自定义代码
+
+### method
+stage: sft  # 训练阶段，sft表示监督微调(Supervised Fine-Tuning)
+do_train: true  # 是否执行训练，设置为true开启训练模式
+finetuning_type: freeze  # 微调类型，freeze表示冻结微调
+freeze_trainable_layers: 8  # 可训练的层数量，只训练最后8层
+freeze_trainable_modules: all  # 可训练的模块类型，all表示所有模块(在指定层数内)
+use_llama_pro: true  # 启用Llama Pro功能，用于结构化剪枝和扩展
+
+### dataset
+dataset: identity,alpaca_en_demo  # 数据集名称，使用identity和alpaca_en_demo两个数据集
+template: llama3  # 数据模板类型，指定为llama3格式
+cutoff_len: 2048  # 输入序列最大长度，超过部分会被截断
+max_samples: 1000  # 最大样本数量，限制训练数据量
+overwrite_cache: true  # 是否覆盖缓存，true表示重新生成预处理缓存
+preprocessing_num_workers: 16  # 预处理并行工作进程数，加速数据预处理
+dataloader_num_workers: 4  # 数据加载器工作进程数，加速数据加载
+
+### output
+output_dir: saves/llama3-8b-pro/freeze/sft  # 模型输出目录，保存训练结果
+logging_steps: 10  # 日志记录频率，每10步输出一次训练日志
+save_steps: 500  # 模型保存频率，每500步保存一次检查点
+plot_loss: true  # 是否绘制损失曲线图
+overwrite_output_dir: true  # 是否覆盖输出目录，true会删除现有输出目录
+save_only_model: false  # 是否只保存模型权重，false表示同时保存优化器状态等
+report_to: none  # 报告工具，none表示不使用任何外部监控工具，可选wandb、tensorboard等
+
+### train
+per_device_train_batch_size: 1  # 每个设备的训练批次大小，设为1减少显存占用
+gradient_accumulation_steps: 8  # 梯度累积步数，模拟更大的批次大小
+learning_rate: 1.0e-4  # 学习率，冻结微调通常使用较大的学习率
+num_train_epochs: 3.0  # 训练轮数，浮点数表示可以设置小数轮
+lr_scheduler_type: cosine  # 学习率调度器类型，cosine表示余弦退火调度器
+warmup_ratio: 0.1  # 预热比例，前10%的训练步骤用于学习率预热
+bf16: true  # 启用BF16混合精度训练，提高训练速度和减少内存使用
+ddp_timeout: 180000000  # DDP超时时间，设置较长超时避免分布式训练超时
+
+### eval
+# val_size: 0.1  # 验证集比例，已注释，表示不使用验证集
+# per_device_eval_batch_size: 1  # 每个设备评估批次大小，已注释
+# eval_strategy: steps  # 评估策略，已注释
+# eval_steps: 500  # 评估频率，已注释

@@ -1,3 +1,12 @@
+# ============================================================
+# 远光微调平台 - 完整依赖
+# ============================================================
+# 前置要求: Python >= 3.11
+# 注意: torch 建议根据你的 CUDA 版本手动安装
+#   参考: https://pytorch.org/get-started/locally/
+# ============================================================
+
+# --- 数据治理模块 ---
 fastapi>=0.115.0
 uvicorn[standard]>=0.30.0
 python-multipart>=0.0.9
@@ -26,3 +35,44 @@ html2text>=2024.2.26
 markitdown>=0.1.0
 chardet>=5.2.0
 easyocr>=1.7.0
+
+# --- LLaMA Factory 微调训练模块 ---
+# 注意: torch/torchvision/torchaudio 不在此处安装，由 start.sh 单独从清华镜像安装
+# 如需手动安装 torch，请参考 start.sh 中的安装命令
+transformers>=4.51.0,<=4.57.1,!=4.52.0,!=4.57.0
+datasets>=2.16.0,<=4.0.0
+accelerate>=1.3.0,<=1.11.0
+peft>=0.14.0,<=0.17.1
+trl>=0.18.0,<=0.24.0
+torchdata>=0.10.0,<=0.11.0
+
+# 数据处理 & 工具
+einops
+scipy
+
+# 模型和分词器
+sentencepiece
+modelscope
+hf-transfer
+safetensors
+
+# 配置和基础设施
+av>=10.0.0,<=16.0.0
+fire
+omegaconf
+packaging
+protobuf
+pyyaml
+
+# 可视化
+gradio>=4.38.0,<=5.50.0
+matplotlib>=3.7.0
+tyro<0.9.0
+
+# API 服务
+sse-starlette
+
+# --- 评估模块 ---
+nltk
+jieba
+rouge-chinese

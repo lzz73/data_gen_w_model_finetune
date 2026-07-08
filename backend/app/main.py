@@ -4,9 +4,11 @@ FastAPI-based API server for dataset generation platform
 """
 
 import logging
+import sys
 import time
 import uuid
 from contextlib import asynccontextmanager
+from pathlib import Path
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, FileResponse, Response
@@ -15,6 +17,11 @@ from fastapi.exceptions import RequestValidationError
 from starlette.middleware.base import BaseHTTPMiddleware
 from sqlalchemy.exc import SQLAlchemyError
 import os
+
+# 将项目根目录加入 sys.path，使后端能导入 llamafactory
+# __file__ = backend/app/main.py → .parent.parent.parent = platform_demo/
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+sys.path.insert(0, str(PROJECT_ROOT))
 
 from app.api.v1 import api_router
 from app.api.response import ApiResponse
@@ -69,6 +76,14 @@ async def lifespan(app: FastAPI):
     await init_db()
     logger.info("Database initialized successfully")
 
+    # 预加载模型列表（用于训练模块）
+    try:
+        from app.api.v1.training import init_model_cache
+        init_model_cache()
+        logger.info("Model cache initialized")
+    except Exception as e:
+        logger.warning(f"Model cache initialization failed: {e}")
+
     # 重置重启时残留的活跃任务（running/pending/cancelling → cancelled）
     try:
         from app.core.database import AsyncSessionLocal
@@ -98,7 +113,19 @@ app = FastAPI(
     description="远光大模型微调平台 - 数据治理与微调训练 API",
     version="1.0.0",
     lifespan=lifespan,
+    docs_url=None,
+    redoc_url=None,
+    openapi_url=None,
 )
+
+
+# 禁用 /docs、/redoc、/openapi.json，访问时返回 404
+@app.get("/docs", include_in_schema=False)
+@app.get("/redoc", include_in_schema=False)
+@app.get("/openapi.json", include_in_schema=False)
+async def block_api_docs():
+    from fastapi.responses import JSONResponse
+    return JSONResponse(status_code=404, content={"detail": "Not Found"})
 
 # Add custom middleware (order matters: last added = first executed)
 app.add_middleware(TimingMiddleware)
@@ -214,5 +241,5 @@ if __name__ == "__main__":
         "app.main:app",
         host=settings.HOST,
         port=settings.PORT,
-        reload=settings.DEBUG,
+        reload=False,
     )

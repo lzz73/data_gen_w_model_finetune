@@ -82,19 +82,6 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/views/training/TrainMonitor.vue'),
         meta: { title: '训练监控', group: '微调训练' },
       },
-      // 评估工作台
-      {
-        path: 'evaluation/task',
-        name: 'EvaluateTask',
-        component: () => import('@/views/evaluation/EvaluateTask.vue'),
-        meta: { title: '评估任务', group: '评估工作台' },
-      },
-      {
-        path: 'evaluation/report',
-        name: 'EvaluateReport',
-        component: () => import('@/views/evaluation/EvaluateReport.vue'),
-        meta: { title: '评估报告', group: '评估工作台' },
-      },
       // 模型仓库
       {
         path: 'model-repo/list',
@@ -113,6 +100,19 @@ const routes: RouteRecordRaw[] = [
         name: 'ModelVerify',
         component: () => import('@/views/model-repo/ModelVerify.vue'),
         meta: { title: '在线验证', group: '模型仓库' },
+      },
+      // 评估工作台
+      {
+        path: 'evaluation/task',
+        name: 'EvaluateTask',
+        component: () => import('@/views/evaluation/EvaluateTask.vue'),
+        meta: { title: '评估任务', group: '评估工作台' },
+      },
+      {
+        path: 'evaluation/report',
+        name: 'EvaluateReport',
+        component: () => import('@/views/evaluation/EvaluateReport.vue'),
+        meta: { title: '评估报告', group: '评估工作台' },
       },
       // 实验面板
       {

@@ -35,6 +35,25 @@ Thumbs.db
 *.ckpt
 data/raw/
 data/processed/
+models/
+
+# Database (runtime)
+*.db
+
+# Training outputs
+output/
+tasks_history.json
+eval_tasks.json
+eval_results/
+
+# Dataset storage (runtime)
+dataset_storage/
+dataset_manager.db
+backend/data/
+backend/YG-Datasets/
+
+# Llamafactory examples (optional, large)
+# examples/
 
 # Environment variables
 .env
