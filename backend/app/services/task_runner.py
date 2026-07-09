@@ -79,7 +79,7 @@ def run_training_subprocess(task_id: str, config: dict, stage: str):
         "--do_train", "True",
         "--model_name_or_path", config.get("base_model", ""),
         "--dataset", config.get("dataset", "identity"),
-        "--dataset_dir", str(ROOT_DIR / "backend" / "data"),
+        "--dataset_dir", str(ROOT_DIR / "data"),
         "--template", config.get("template", "default"),
         "--finetuning_type", finetuning_type,
         "--output_dir", output_dir,

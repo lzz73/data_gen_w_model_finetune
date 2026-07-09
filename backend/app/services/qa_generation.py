@@ -17,7 +17,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.database import AsyncSessionLocal
 from app.core.exceptions import ValidationException
 from app.core.logging import log_failure, log_success, logger
-from app.models.models import Chunk, File, ModelConfig, Question, Task
+from app.models.models import Chunk, Dataset, File, ModelConfig, Question, Task
 from app.services.template_qa_engine import generate_template_qa_pairs, parse_chunk_content, reset_desensitize_state
 from app.services.llm_helpers import (
     CHARS_PER_QUESTION,
@@ -563,6 +563,33 @@ async def process_generate_qa_async(
                 task.error = None
                 await db.commit()
 
+            # --- 自动创建 Dataset 记录，使数据管理页面可见 ---
+            if created_questions > 0 and batch_id:
+                dataset_name = f"非结构化问答-{datetime.now().strftime('%Y%m%d_%H%M')}"
+                # 检查是否已存在同一 batch_id 的 dataset（避免重复）
+                all_ds = await db.execute(
+                    select(Dataset).where(Dataset.project_id == project_id)
+                )
+                existing_datasets = all_ds.scalars().all()
+                batch_id_str = str(batch_id)
+                already_exists = any(
+                    (d.extra_data or {}).get("batch_id") == batch_id_str
+                    for d in existing_datasets
+                )
+                if not already_exists:
+                    ds = Dataset(
+                        project_id=project_id,
+                        name=dataset_name,
+                        dataset_type="qa",
+                        extra_data={
+                            "batch_id": batch_id_str,
+                            "source": "generated_qa",
+                        },
+                    )
+                    db.add(ds)
+                    await db.commit()
+                    logger.info(f"[问答对生成] ✓ 已创建 Dataset 记录: {dataset_name} (batch_id={batch_id})")
+
             status_label = "已取消（部分完成）" if was_cancelled else "完成"
             log_success(
                 f"问答对批量生成{status_label}",
@@ -895,6 +922,34 @@ async def process_structured_qa_async(
                     "total_rows": total_rows,
                 }
                 await db.commit()
+
+            # --- 自动创建 Dataset 记录，使数据管理页面可见 ---
+            if total_created > 0 and batch_id:
+                strategy_label = "模板" if strategy == "template" else "LLM增强"
+                dataset_name = f"结构化问答({strategy_label})-{datetime.now().strftime('%Y%m%d_%H%M')}"
+                # 检查是否已存在同一 batch_id 的 dataset（避免重复）
+                all_ds = await db.execute(
+                    select(Dataset).where(Dataset.project_id == project_id)
+                )
+                existing_datasets = all_ds.scalars().all()
+                batch_id_str = str(batch_id)
+                already_exists = any(
+                    (d.extra_data or {}).get("batch_id") == batch_id_str
+                    for d in existing_datasets
+                )
+                if not already_exists:
+                    ds = Dataset(
+                        project_id=project_id,
+                        name=dataset_name,
+                        dataset_type="qa",
+                        extra_data={
+                            "batch_id": batch_id_str,
+                            "source": f"structured_{strategy}",
+                        },
+                    )
+                    db.add(ds)
+                    await db.commit()
+                    logger.info(f"[结构化QA] ✓ 已创建 Dataset 记录: {dataset_name} (batch_id={batch_id})")
 
             log_success(
                 "结构化数据问答对生成完成",

@@ -67,8 +67,8 @@
             <el-icon><Box /></el-icon>
             <span>模型仓库</span>
           </template>
-          <el-menu-item index="/model-repo/list">模型配置</el-menu-item>
           <el-menu-item index="/model-repo/export">模型导出</el-menu-item>
+          <el-menu-item index="/model-repo/list">模型配置</el-menu-item>
           <el-menu-item index="/model-repo/verify">在线验证</el-menu-item>
         </el-sub-menu>
 

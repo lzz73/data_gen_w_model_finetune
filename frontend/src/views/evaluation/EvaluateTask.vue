@@ -109,7 +109,7 @@
         </el-form-item>
 
         <el-divider content-position="left">LLM 评审（可选）</el-divider>
-        <el-form-item label="启用 LLM 评审">
+        <el-form-item label="启用LLM评审" style="white-space: nowrap;">
           <el-switch v-model="evalForm.use_judge" />
         </el-form-item>
         <template v-if="evalForm.use_judge">

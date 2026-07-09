@@ -148,6 +148,18 @@ import PageHeader from '@/components/common/PageHeader.vue'
 import EmptyState from '@/components/common/EmptyState.vue'
 import type { UploadFile } from 'element-plus'
 
+// 兼容非 HTTPS 环境的 UUID 生成（crypto.randomUUID 仅在安全上下文中可用）
+const generateId = (): string => {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID()
+  }
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0
+    const v = c === 'x' ? r : (r & 0x3) | 0x8
+    return v.toString(16)
+  })
+}
+
 const projectStore = useProjectStore()
 
 // 模板类型
@@ -184,7 +196,7 @@ const handleSelectionChange = (selection: QAItem[]) => {
 // 新增一行
 const addRow = () => {
   qaItems.value.push({
-    id: crypto.randomUUID(),
+    id: generateId(),
     instruction: '',
     response: '',
     rejected: '',
@@ -253,7 +265,7 @@ const parseJsonl = async (file: File) => {
       if (hasRejected) detectedDpo = true
 
       items.push({
-        id: crypto.randomUUID(),
+        id: generateId(),
         instruction: obj.instruction || obj.question || obj.content || '',
         response: obj.response || obj.answer || obj.chosen || obj.output || '',
         rejected: obj.rejected || obj.rejected_answer || '',
@@ -297,7 +309,7 @@ const parseJson = async (file: File) => {
     if (hasRejected) detectedDpo = true
 
     items.push({
-      id: crypto.randomUUID(),
+      id: generateId(),
       instruction: obj.instruction || obj.question || obj.content || '',
       response: obj.response || obj.answer || obj.chosen || obj.output || '',
       rejected: obj.rejected || obj.rejected_answer || '',
@@ -339,7 +351,7 @@ const parseExcel = async (file: File) => {
     if (rejected) detectedDpo = true
 
     items.push({
-      id: crypto.randomUUID(),
+      id: generateId(),
       instruction,
       response,
       rejected,

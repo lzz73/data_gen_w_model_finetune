@@ -1,0 +1,24 @@
+version: "3.8"
+services:
+  yg-platform:
+    image: yg-platform:latest
+    container_name: yg-platform
+    ports:
+      - "18121:18121"
+    volumes:
+      - .:/app
+    dns:
+      - 8.8.8.8
+      - 114.114.114.114
+    environment:
+      - HOST=0.0.0.0
+      - PORT=18121
+      - DATABASE_URL=sqlite+aiosqlite:///./ygdataset.db
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: unless-stopped

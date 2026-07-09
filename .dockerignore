@@ -1,0 +1,29 @@
+# Git
+.git/
+.gitignore
+
+# Python
+__pycache__/
+*.pyc
+backend/venv/
+backend/logs/
+*.db
+
+# Node
+frontend/node_modules/
+frontend/src/
+frontend/.vscode/
+
+# 大文件（挂载提供，不入镜像）
+models/
+output/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+.claude/
+
+# 文档
+*.docx

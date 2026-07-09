@@ -1,63 +1,42 @@
+# Models (large files)
+models/
+
+# Training output
+output/
+
+# Runtime data
+backend/uploads/
+backend/logs/
+backend/ygdataset.db
+backend/data/
+
+# Data (demo/large files)
+data/
+
+# Eval results (runtime)
+eval_results/
+
+# Task history (runtime)
+tasks_history.json
+eval_tasks.json
+
 # Python
 __pycache__/
-*.py[cod]
-*$py.class
-*.so
-*.egg-info/
-dist/
-build/
-.eggs/
-
-# Virtual environments
-venv/
+*.pyc
+*.pyo
 .venv/
+venv/
 env/
 
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
+# Node
+frontend/node_modules/
 
 # OS
 .DS_Store
 Thumbs.db
 
-# Jupyter
-.ipynb_checkpoints/
-
-# Model files & data
-*.pt
-*.pth
-*.bin
-*.onnx
-*.safetensors
-*.ckpt
-data/raw/
-data/processed/
-models/
-
-# Database (runtime)
-*.db
-
-# Training outputs
-output/
-tasks_history.json
-eval_tasks.json
-eval_results/
-
-# Dataset storage (runtime)
-dataset_storage/
-dataset_manager.db
-backend/data/
-backend/YG-Datasets/
-
-# Llamafactory examples (optional, large)
-# examples/
-
-# Environment variables
-.env
-
-# Logs
-*.log
-logs/
+# IDE
+.idea/
+.vscode/
+*.swp
+backend/YG-Datasets/test_scanned/

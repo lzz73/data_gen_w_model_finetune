@@ -1038,7 +1038,7 @@ async def ws_train_monitor(websocket: WebSocket, task_id: str):
                 },
             })
 
-            gpus = get_gpu_info()
+            gpus = await asyncio.get_event_loop().run_in_executor(None, get_gpu_info)
             if gpus:
                 await websocket.send_json({"type": "gpu", "data": gpus})
 
